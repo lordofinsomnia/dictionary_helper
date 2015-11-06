@@ -24,8 +24,8 @@ func startServer() *httptest.ResponseRecorder {
 func traceError(testName string, t *testing.T, response *httptest.ResponseRecorder) {
 	t.Error(testName, " failed!")
 	t.Error("	code: ", response.Code)
-	t.Error("	body: ", response.Body.String())
 	t.Error("	body len: ", len(response.Body.String()))
+	t.Error("	body: ", response.Body.String())
 }
 
 func TestHomepage(t *testing.T) {
