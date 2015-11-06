@@ -5,6 +5,7 @@ import (
 	"github.com/martini-contrib/render"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 )
 
@@ -32,5 +33,13 @@ func TestHomepage(t *testing.T) {
 
 	if response.Body.String() == "" {
 		traceError("TestHomepage", t, response)
+	}
+}
+
+func TestHomepageHasCaption(t *testing.T) {
+	response := startServer()
+
+	if strings.Contains(response.Body.String(), "Dictionary Helper") == false {
+		traceError("TestHomepageHasCaption", t, response)
 	}
 }
