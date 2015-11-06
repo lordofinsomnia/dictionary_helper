@@ -53,17 +53,17 @@ func TestHomeHasSourcesLink(t *testing.T) {
 }
 
 /*
-[martini] Completed 200 OK in 91.373µs
+[martini] Completed 200 OK in 216.855µs
 [martini] Started GET / for
-[martini] Completed 200 OK in 69.625µs
+[martini] Completed 200 OK in 198.589µs
 [martini] Started GET / for
-[martini] Completed 200 OK in 65.437µs
+[martini] Completed 200 OK in 182.777µs
 [martini] Started GET / for
-[martini] Completed 200 OK in 63.202µs
+[martini] Completed 200 OK in 164.963µs
 [martini] Started GET / for
-[martini] Completed 200 OK in 72.268µs
+[martini] Completed 200 OK in 170.234µs
 [martini] Started GET / for
-[martini] Completed 200 OK in 65.616µs
+[martini] Completed 200 OK in 187.29µs
 2000000000	         0.00 ns/op
 */
 func BenchmarkHomepage(b *testing.B) {
