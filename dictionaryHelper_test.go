@@ -20,12 +20,17 @@ func startServer() *httptest.ResponseRecorder {
 	return response
 }
 
+func traceError(t *testing.T, response *httptest.ResponseRecorder) {
+	t.Error("TestHomepage failed!")
+	t.Error("	code: ", response.Code)
+	t.Error("	body: ", response.Body.String())
+	t.Error("	body len: ", len(response.Body.String()))
+}
+
 func TestHomepage(t *testing.T) {
 	response := startServer()
+
 	if response.Body.String() == "" {
-		t.Error("TestHomepage failed!")
-		t.Error("	code: ", response.Code)
-		t.Error("	body: ", response.Body.String())
-		t.Error("	body len: ", len(response.Body.String()))
+		traceError(t, response)
 	}
 }
