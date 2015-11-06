@@ -1,22 +1,17 @@
-package dictionaryHelper
+package main
 
 import (
 	"github.com/go-martini/martini"
 	"github.com/martini-contrib/render"
-	"net/http"
-	"net/http/httptest"
 )
 
 func main() {
 	webApp := martini.Classic()
 	webApp.Get("/", homeHandler)
 	webApp.Use(render.Renderer())
-
-	request, _ := http.NewRequest("GET", "/", nil)
-	response := httptest.NewRecorder()
-	webApp.ServeHTTP(response, request)
+	webApp.Run()
 }
 
 func homeHandler() string {
-	return ""
+	return "Dictionary Helper"
 }
