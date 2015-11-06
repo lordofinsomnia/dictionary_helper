@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/go-martini/martini"
 	"github.com/martini-contrib/render"
+	"net/http"
 )
 
 func main() {
@@ -14,9 +15,9 @@ func main() {
 }
 
 func homeHandler(r render.Render) {
-	r.HTML(200, "index", "")
+	r.HTML(http.StatusOK, "index", "")
 }
 
 func sourcesHandler(r render.Render) {
-	r.HTML(200, "index", "")
+	r.HTML(http.StatusOK, "index", "")
 }
