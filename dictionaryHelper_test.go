@@ -9,27 +9,30 @@ import (
 	"testing"
 )
 
-func startServer() *httptest.ResponseRecorder {
+func startServer(path string) *httptest.ResponseRecorder {
 	webApp := martini.Classic()
-	webApp.Get("/", homeHandler)
+	curPath := "/" + path
+	webApp.Get(curPath, homeHandler)
 
 	webApp.Use(render.Renderer())
 
-	request, _ := http.NewRequest("GET", "/", nil)
+	request, _ := http.NewRequest("GET", curPath, nil)
 	response := httptest.NewRecorder()
 	webApp.ServeHTTP(response, request)
 	return response
 }
 
 func traceError(testName string, t *testing.T, response *httptest.ResponseRecorder) {
-	t.Error(testName, " failed!")
-	t.Error("	code: ", response.Code)
-	t.Error("	body len: ", len(response.Body.String()))
-	t.Error("	body: ", response.Body.String())
+	if response.Code != http.StatusOK {
+		t.Error(testName, " failed!")
+		t.Error("	code: ", response.Code)
+		t.Error("	body len: ", len(response.Body.String()))
+		t.Error("	body: ", response.Body.String())
+	}
 }
 
 func TestHomepage(t *testing.T) {
-	response := startServer()
+	response := startServer("")
 
 	if response.Body.String() == "" {
 		traceError("TestHomepage", t, response)
@@ -37,7 +40,7 @@ func TestHomepage(t *testing.T) {
 }
 
 func TestHomepageHasCaption(t *testing.T) {
-	response := startServer()
+	response := startServer("")
 
 	if strings.Contains(response.Body.String(), "Dictionary Helper") == false {
 		traceError("TestHomepageHasCaption", t, response)
@@ -45,7 +48,15 @@ func TestHomepageHasCaption(t *testing.T) {
 }
 
 func TestHomeHasSourcesLink(t *testing.T) {
-	response := startServer()
+	response := startServer("")
+
+	if strings.Contains(response.Body.String(), "Sources") == false {
+		traceError("TestHomeHasSourcesLink", t, response)
+	}
+}
+
+func TestHomeSourcesLinkWorks(t *testing.T) {
+	response := startServer("sources")
 
 	if strings.Contains(response.Body.String(), "Sources") == false {
 		traceError("TestHomeHasSourcesLink", t, response)
@@ -67,5 +78,5 @@ func TestHomeHasSourcesLink(t *testing.T) {
 2000000000	         0.00 ns/op
 */
 func BenchmarkHomepage(b *testing.B) {
-	startServer()
+	startServer("")
 }
