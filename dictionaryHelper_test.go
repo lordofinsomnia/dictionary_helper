@@ -44,6 +44,14 @@ func TestHomepageHasCaption(t *testing.T) {
 	}
 }
 
+func TestHomeHasSourcesLink(t *testing.T) {
+	response := startServer()
+
+	if strings.Contains(response.Body.String(), "Sources") == false {
+		traceError("TestHomeHasSourcesLink", t, response)
+	}
+}
+
 /*
 [martini] Completed 200 OK in 91.373µs
 [martini] Started GET / for

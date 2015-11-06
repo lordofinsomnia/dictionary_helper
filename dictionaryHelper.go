@@ -12,6 +12,6 @@ func main() {
 	webApp.Run()
 }
 
-func homeHandler() string {
-	return "Dictionary Helper"
+func homeHandler(r render.Render) {
+	r.HTML(200, "index", "")
 }
