@@ -43,3 +43,21 @@ func TestHomepageHasCaption(t *testing.T) {
 		traceError("TestHomepageHasCaption", t, response)
 	}
 }
+
+/*
+[martini] Completed 200 OK in 91.373µs
+[martini] Started GET / for
+[martini] Completed 200 OK in 69.625µs
+[martini] Started GET / for
+[martini] Completed 200 OK in 65.437µs
+[martini] Started GET / for
+[martini] Completed 200 OK in 63.202µs
+[martini] Started GET / for
+[martini] Completed 200 OK in 72.268µs
+[martini] Started GET / for
+[martini] Completed 200 OK in 65.616µs
+2000000000	         0.00 ns/op
+*/
+func BenchmarkHomepage(b *testing.B) {
+	startServer()
+}
