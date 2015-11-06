@@ -1,4 +1,4 @@
-package dictionaryHelper
+package main
 
 import (
 	"github.com/go-martini/martini"
@@ -8,8 +8,7 @@ import (
 	"testing"
 )
 
-func TestHomepage(t *testing.T) {
-
+func startServer() *httptest.ResponseRecorder {
 	webApp := martini.Classic()
 	webApp.Get("/", homeHandler)
 
@@ -18,7 +17,11 @@ func TestHomepage(t *testing.T) {
 	request, _ := http.NewRequest("GET", "/", nil)
 	response := httptest.NewRecorder()
 	webApp.ServeHTTP(response, request)
+	return response
+}
 
+func TestHomepage(t *testing.T) {
+	response := startServer()
 	if response.Body.String() == "" {
 		t.Error("TestHomepage failed!")
 		t.Error("	code: ", response.Code)
