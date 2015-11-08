@@ -17,6 +17,7 @@ profile="$workdir/cover.out"
 mode=count
 
 generate_cover_data() {
+    echo "generate_cover_data start"
     rm -rf "$workdir"
     mkdir "$workdir"
 
