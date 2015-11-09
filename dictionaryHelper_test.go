@@ -64,7 +64,6 @@ func TestRouteHaveCaption(t *testing.T) {
 }
 
 func TestRouteLinkWorks(t *testing.T) {
-
 	webApp = nil
 	configureServer()
 	for _, curRoute := range routes {
@@ -91,4 +90,39 @@ func TestRouteLinkWorks(t *testing.T) {
 */
 func BenchmarkHomepage(b *testing.B) {
 	startTestServer("", homeHandler)
+}
+
+/*
+BenchmarkAllRoutes-8	[martini] Started GET / for
+[martini] Completed 200 OK in 158.72µs
+[martini] Started GET /sources for
+[martini] Completed 200 OK in 140.295µs
+[martini] Started GET / for
+[martini] Completed 200 OK in 168.926µs
+[martini] Started GET /sources for
+[martini] Completed 200 OK in 94.797µs
+[martini] Started GET / for
+[martini] Completed 200 OK in 176.606µs
+[martini] Started GET /sources for
+[martini] Completed 200 OK in 144.925µs
+[martini] Started GET / for
+[martini] Completed 200 OK in 163.13µs
+[martini] Started GET /sources for
+[martini] Completed 200 OK in 140.412µs
+[martini] Started GET / for
+[martini] Completed 200 OK in 151.014µs
+[martini] Started GET /sources for
+[martini] Completed 200 OK in 108.611µs
+[martini] Started GET / for
+[martini] Completed 200 OK in 176.237µs
+[martini] Started GET /sources for
+[martini] Completed 200 OK in 120.532µs
+2000000000	         0.00 ns/op
+*/
+func BenchmarkAllRoutes(b *testing.B) {
+	webApp = nil
+	configureServer()
+	for _, curRoute := range routes {
+		getResponse(webApp, curRoute.path)
+	}
 }
