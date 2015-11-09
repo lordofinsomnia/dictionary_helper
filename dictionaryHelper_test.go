@@ -9,7 +9,7 @@ import (
 	"testing"
 )
 
-func startServer(path string, pathHandler martini.Handler) *httptest.ResponseRecorder {
+func startTestServer(path string, pathHandler martini.Handler) *httptest.ResponseRecorder {
 	webApp := martini.Classic()
 	curPath := "/" + path
 	webApp.Get(curPath, pathHandler)
@@ -32,7 +32,7 @@ func traceError(testName string, t *testing.T, response *httptest.ResponseRecord
 }
 
 func TestHomepage(t *testing.T) {
-	response := startServer("", homeHandler)
+	response := startTestServer("", homeHandler)
 
 	if response.Body.String() == "" {
 		traceError("TestHomepage", t, response)
@@ -40,7 +40,7 @@ func TestHomepage(t *testing.T) {
 }
 
 func TestHomepageHasCaption(t *testing.T) {
-	response := startServer("", homeHandler)
+	response := startTestServer("", homeHandler)
 
 	if strings.Contains(response.Body.String(), "Dictionary Helper") == false {
 		traceError("TestHomepageHasCaption", t, response)
@@ -48,7 +48,7 @@ func TestHomepageHasCaption(t *testing.T) {
 }
 
 func TestHomeHasSourcesLink(t *testing.T) {
-	response := startServer("", homeHandler)
+	response := startTestServer("", homeHandler)
 
 	if strings.Contains(response.Body.String(), "Sources") == false {
 		traceError("TestHomeHasSourcesLink", t, response)
@@ -56,7 +56,7 @@ func TestHomeHasSourcesLink(t *testing.T) {
 }
 
 func TestHomeSourcesLinkWorks(t *testing.T) {
-	response := startServer("sources", sourcesHandler)
+	response := startTestServer("sources", sourcesHandler)
 
 	if strings.Contains(response.Body.String(), "Sources") == false {
 		traceError("TestHomeHasSourcesLink", t, response)
@@ -78,5 +78,5 @@ func TestHomeSourcesLinkWorks(t *testing.T) {
 2000000000	         0.00 ns/op
 */
 func BenchmarkHomepage(b *testing.B) {
-	startServer("", homeHandler)
+	startTestServer("", homeHandler)
 }

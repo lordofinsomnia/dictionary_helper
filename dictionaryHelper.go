@@ -7,6 +7,10 @@ import (
 )
 
 func main() {
+	startServer()
+}
+
+func startServer() {
 	webApp := martini.Classic()
 	webApp.Get("/", homeHandler)
 	webApp.Get("/sources", sourcesHandler)
