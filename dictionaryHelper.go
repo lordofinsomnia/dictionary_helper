@@ -16,17 +16,20 @@ var routes = [...]Route{
 	Route{name: "home", path: "/", funcHandler: homeHandler},
 	Route{name: "source", path: "/sources", funcHandler: sourcesHandler}}
 
+var webApp *martini.ClassicMartini
+
 func main() {
-	startServer()
+	configureServer()
+	webApp.Run()
 }
 
-func startServer() {
-	webApp := martini.Classic()
+func configureServer() {
+	webApp = martini.Classic()
 	for _, curRoute := range routes {
 		webApp.Get(curRoute.path, curRoute.funcHandler)
 	}
 	webApp.Use(render.Renderer())
-	webApp.Run()
+
 }
 
 func homeHandler(r render.Render) {

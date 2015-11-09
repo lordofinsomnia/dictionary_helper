@@ -16,7 +16,11 @@ func startTestServer(path string, pathHandler martini.Handler) *httptest.Respons
 
 	webApp.Use(render.Renderer())
 
-	request, _ := http.NewRequest("GET", curPath, nil)
+	return getResponse(webApp, curPath)
+}
+
+func getResponse(webApp *martini.ClassicMartini, path string) *httptest.ResponseRecorder {
+	request, _ := http.NewRequest("GET", path, nil)
 	response := httptest.NewRecorder()
 	webApp.ServeHTTP(response, request)
 	return response
@@ -31,9 +35,28 @@ func traceError(testName string, t *testing.T, response *httptest.ResponseRecord
 	}
 }
 
-func TestRoutes(t *testing.T) {
+func TestRoutesSimulator(t *testing.T) {
 	for _, curRoute := range routes {
 		response := startTestServer(curRoute.path, curRoute.funcHandler)
+		if response.Code != http.StatusOK {
+			traceError(curRoute.name, t, response)
+		}
+	}
+}
+
+func TestServerSettings(t *testing.T) {
+	webApp = nil
+	configureServer()
+	if webApp == nil {
+		t.Error("TestRoutes failed web=nil")
+	}
+}
+
+func TestServerRoutes(t *testing.T) {
+	webApp = nil
+	configureServer()
+	for _, curRoute := range routes {
+		response := getResponse(webApp, curRoute.path)
 		if response.Code != http.StatusOK {
 			traceError(curRoute.name, t, response)
 		}
