@@ -33,7 +33,7 @@ func traceError(testName string, t *testing.T, response *httptest.ResponseRecord
 
 func TestRoutes(t *testing.T) {
 	for _, curRoute := range routes {
-		response := startServer(curRoute.path, curRoute.funcHandler)
+		response := startTestServer(curRoute.path, curRoute.funcHandler)
 		if response.Code != http.StatusOK {
 			traceError(curRoute.name, t, response)
 		}
