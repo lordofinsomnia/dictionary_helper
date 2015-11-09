@@ -17,6 +17,10 @@ var routes = [...]Route{
 	Route{name: "source", path: "/sources", funcHandler: sourcesHandler}}
 
 func main() {
+	startServer()
+}
+
+func startServer() {
 	webApp := martini.Classic()
 	for _, curRoute := range routes {
 		webApp.Get(curRoute.path, curRoute.funcHandler)
