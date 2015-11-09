@@ -6,10 +6,20 @@ import (
 	"net/http"
 )
 
+type Route struct {
+	path        string
+	funcHandler martini.Handler
+}
+
+var routes = [...]Route{
+	Route{path: "/", funcHandler: homeHandler},
+	Route{path: "/sources", funcHandler: sourcesHandler}}
+
 func main() {
 	webApp := martini.Classic()
-	webApp.Get("/", homeHandler)
-	webApp.Get("/sources", sourcesHandler)
+	for _, curRoute := range routes {
+		webApp.Get(curRoute.path, curRoute.funcHandler)
+	}
 	webApp.Use(render.Renderer())
 	webApp.Run()
 }
