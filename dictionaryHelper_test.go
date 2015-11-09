@@ -52,38 +52,26 @@ func TestServerSettings(t *testing.T) {
 	}
 }
 
-func TestServerRoutes(t *testing.T) {
+func TestRouteHaveCaption(t *testing.T) {
 	webApp = nil
 	configureServer()
 	for _, curRoute := range routes {
 		response := getResponse(webApp, curRoute.path)
-		if response.Code != http.StatusOK {
+		if strings.Contains(response.Body.String(), curRoute.caption) == false {
 			traceError(curRoute.name, t, response)
 		}
 	}
 }
 
-func TestHomepageHasCaption(t *testing.T) {
-	response := startTestServer("", homeHandler)
+func TestRouteLinkWorks(t *testing.T) {
 
-	if strings.Contains(response.Body.String(), "Dictionary Helper") == false {
-		traceError("TestHomepageHasCaption", t, response)
-	}
-}
-
-func TestHomeHasSourcesLink(t *testing.T) {
-	response := startTestServer("", homeHandler)
-
-	if strings.Contains(response.Body.String(), "Sources") == false {
-		traceError("TestHomeHasSourcesLink", t, response)
-	}
-}
-
-func TestHomeSourcesLinkWorks(t *testing.T) {
-	response := startTestServer("sources", sourcesHandler)
-
-	if strings.Contains(response.Body.String(), "Sources") == false {
-		traceError("TestHomeHasSourcesLink", t, response)
+	webApp = nil
+	configureServer()
+	for _, curRoute := range routes {
+		response := getResponse(webApp, curRoute.path)
+		if strings.Contains(response.Body.String(), curRoute.caption) == false {
+			traceError(curRoute.name, t, response)
+		}
 	}
 }
 

@@ -10,11 +10,12 @@ type Route struct {
 	name        string
 	path        string
 	funcHandler martini.Handler
+	caption     string
 }
 
 var routes = [...]Route{
-	Route{name: "home", path: "/", funcHandler: homeHandler},
-	Route{name: "source", path: "/sources", funcHandler: sourcesHandler}}
+	Route{name: "home", path: "/", funcHandler: homeHandler, caption: "Dictionary Helper"},
+	Route{name: "source", path: "/sources", funcHandler: sourcesHandler, caption: "Sources"}}
 
 var webApp *martini.ClassicMartini
 
