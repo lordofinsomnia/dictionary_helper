@@ -11,7 +11,7 @@ import (
 
 func startServer(path string, pathHandler martini.Handler) *httptest.ResponseRecorder {
 	webApp := martini.Classic()
-	curPath := "/" + path
+	curPath := path
 	webApp.Get(curPath, pathHandler)
 
 	webApp.Use(render.Renderer())
@@ -31,11 +31,12 @@ func traceError(testName string, t *testing.T, response *httptest.ResponseRecord
 	}
 }
 
-func TestHomepage(t *testing.T) {
-	response := startServer("", homeHandler)
-
-	if response.Body.String() == "" {
-		traceError("TestHomepage", t, response)
+func TestRoutes(t *testing.T) {
+	for _, curRoute := range routes {
+		response := startServer(curRoute.path, curRoute.funcHandler)
+		if response.Code != http.StatusOK {
+			traceError(curRoute.name, t, response)
+		}
 	}
 }
 

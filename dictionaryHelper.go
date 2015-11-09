@@ -7,13 +7,14 @@ import (
 )
 
 type Route struct {
+	name        string
 	path        string
 	funcHandler martini.Handler
 }
 
 var routes = [...]Route{
-	Route{path: "/", funcHandler: homeHandler},
-	Route{path: "/sources", funcHandler: sourcesHandler}}
+	Route{name: "home", path: "/", funcHandler: homeHandler},
+	Route{name: "source", path: "/sources", funcHandler: sourcesHandler}}
 
 func main() {
 	webApp := martini.Classic()
