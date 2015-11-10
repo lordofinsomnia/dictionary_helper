@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/go-martini/martini"
 	"github.com/martini-contrib/render"
 	"net/http"
@@ -27,12 +28,10 @@ func getResponse(webApp *martini.ClassicMartini, path string) *httptest.Response
 }
 
 func traceError(testName string, t *testing.T, response *httptest.ResponseRecorder) {
-	if response.Code != http.StatusOK {
-		t.Error(testName, " failed!")
-		t.Error("	code: ", response.Code)
-		t.Error("	body len: ", len(response.Body.String()))
-		t.Error("	body: ", response.Body.String())
-	}
+	t.Error(testName, " failed!")
+	t.Error("	code: ", response.Code)
+	t.Error("	body len: ", len(response.Body.String()))
+	t.Error("	body: ", response.Body.String())
 }
 
 func TestRoutesSimulator(t *testing.T) {
@@ -57,6 +56,9 @@ func TestRouteHaveCaption(t *testing.T) {
 	configureServer()
 	for _, curRoute := range routes {
 		response := getResponse(webApp, curRoute.path)
+		fmt.Println("path: " + curRoute.path)
+		fmt.Println("body: " + response.Body.String())
+		fmt.Println("caption: " + curRoute.caption)
 		if strings.Contains(response.Body.String(), curRoute.caption) == false {
 			traceError(curRoute.name, t, response)
 		}
@@ -68,7 +70,7 @@ func TestRouteLinkWorks(t *testing.T) {
 	configureServer()
 	for _, curRoute := range routes {
 		response := getResponse(webApp, curRoute.path)
-		if strings.Contains(response.Body.String(), curRoute.caption) == false {
+		if response.Code != http.StatusOK {
 			traceError(curRoute.name, t, response)
 		}
 	}
