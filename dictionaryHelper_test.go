@@ -86,20 +86,30 @@ func TestBdd(t *testing.T) {
 		Convey("Server started?", func() {
 			So(webApp, ShouldNotBeNil)
 		})
-		Convey("Has caption Dictionary Helper", func() {
-			response := getResponse(webApp, "/")
-			body := response.Body.String()
-			So(body, ShouldContainSubstring, "<h2>Dictionary Helper</h2>")
-		})
-		Convey("Has link sources", func() {
-			response := getResponse(webApp, "/")
-			body := response.Body.String()
-			So(body, ShouldContainSubstring, "sources")
-		})
-		Convey("Open link sources", func() {
-			response := getResponse(webApp, "/sources")
-			body := response.Body.String()
-			So(body, ShouldContainSubstring, "<h2>Dictionary Helper - Sources</h2>")
+		Convey("Routes are set", func() {
+			So(routes, ShouldNotBeEmpty)
+			for _, curRoute := range routes {
+				Convey("Route: "+curRoute.path+" works", func() {
+					response := getResponse(webApp, curRoute.path)
+					So(response.Code, ShouldEqual, http.StatusOK)
+				})
+			}
+
+			Convey("Has caption Dictionary Helper", func() {
+				response := getResponse(webApp, "/")
+				body := response.Body.String()
+				So(body, ShouldContainSubstring, "<h2>Dictionary Helper</h2>")
+			})
+			Convey("Has link sources", func() {
+				response := getResponse(webApp, "/")
+				body := response.Body.String()
+				So(body, ShouldContainSubstring, "sources")
+			})
+			Convey("Open link sources", func() {
+				response := getResponse(webApp, "/sources")
+				body := response.Body.String()
+				So(body, ShouldContainSubstring, "<h2>Dictionary Helper - Sources</h2>")
+			})
 		})
 	})
 }
