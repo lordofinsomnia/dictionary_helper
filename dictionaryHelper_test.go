@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/go-martini/martini"
 	"github.com/martini-contrib/render"
+	. "github.com/smartystreets/goconvey/convey"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -74,6 +75,35 @@ func TestRouteLinkWorks(t *testing.T) {
 			traceError(curRoute.name, t, response)
 		}
 	}
+}
+
+func TestBdd(t *testing.T) {
+	webApp = nil
+	Convey("StartServer", t, func() {
+		configureServer()
+		Convey("Server started?", func() {
+			So(webApp, ShouldNotBeNil)
+		})
+		Convey("Has caption \"Dictionary Helper\"", func() {
+			response := getResponse(webApp, "/")
+			body := response.Body.String()
+			So(body, ShouldContainSubstring, "<h2>Dictionary Helper</h2>")
+		})
+		Convey("Open link \"sources\"", func() {
+			response := getResponse(webApp, "/sources")
+			body := response.Body.String()
+			So(body, ShouldContainSubstring, "<h2>Dictionary Helper - Sources</h2>")
+		})
+	})
+	/*
+
+
+		Convey("Has link \"sources\"", t, func() {
+			Convey("Open link \"sources\"", func() {
+				Convey("Has caption \"Dictionary Helper - Sources\"", nil)
+			})
+		})
+	})*/
 }
 
 /*
