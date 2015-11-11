@@ -137,6 +137,30 @@ func TestApp(t *testing.T) {
 		})
 	})
 }
+func TestSources(t *testing.T) {
+	Convey("Sources works", t, func() {
+		Convey("Has all gui items", func() {
+			Convey("Has caption", func() {
+				Convey("Has caption label", func() {
+				})
+				Convey("Has caption editbox", func() {
+				})
+			})
+			Convey("Has year", func() {
+				Convey("Has year label", func() {
+				})
+				Convey("Has year editbox", func() {
+				})
+			})
+			Convey("Has shortname", func() {
+				Convey("Has shortname label", func() {
+				})
+				Convey("Has shortname editbox", func() {
+				})
+			})
+		})
+	})
+}
 
 /*
 [martini] Completed 200 OK in 216.855µs
