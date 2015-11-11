@@ -86,6 +86,12 @@ func TestUtils(t *testing.T) {
 			expected := "<h2>test</h2>"
 			So(htmlHeader(test), ShouldEqual, expected)
 		})
+		Convey("htmlLink func", func() {
+			path := "/test"
+			caption := "test"
+			expected := "<a href=\"/test\">test</a>"
+			So(htmlLink(path, caption), ShouldEqual, expected)
+		})
 	})
 }
 
@@ -107,9 +113,16 @@ func TestApp(t *testing.T) {
 					Convey("Has caption", func() {
 						So(response.Body.String(), ShouldContainSubstring, curRoute.caption)
 					})
-					Convey("Has source link", func() {
-						link := "<a href=\"/sources\">Sources</a>"
-						So(response.Body.String(), ShouldContainSubstring, link)
+					Convey("Link slice found", func() {
+						So(links, ShouldNotBeEmpty)
+						Convey("Has all links", func() {
+							for _, curLink := range links {
+								Convey("Has link: "+curLink.caption, func() {
+									link := htmlLink(curLink.path, curLink.caption)
+									So(response.Body.String(), ShouldContainSubstring, link)
+								})
+							}
+						})
 					})
 				})
 			}

@@ -13,6 +13,15 @@ type Route struct {
 	caption     string
 }
 
+type Link struct {
+	path    string
+	caption string
+	html    string
+}
+
+var links = [...]Link{Link{caption: "Home", path: "/"},
+	Link{caption: "Sources", path: "/sources"}}
+
 var routes = [...]Route{
 	Route{name: "home",
 		path:        "/",
@@ -36,6 +45,10 @@ func startServer() {
 
 func htmlHeader(withOutHeader string) string {
 	return "<h2>" + withOutHeader + "</h2>"
+}
+
+func htmlLink(path string, caption string) string {
+	return "<a href=\"" + path + "\">" + caption + "</a>"
 }
 
 func configureServer() {
