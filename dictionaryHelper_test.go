@@ -79,7 +79,17 @@ func TestRouteLinkWorks(t *testing.T) {
 	}
 }
 */
-func TestBdd(t *testing.T) {
+func TestUtils(t *testing.T) {
+	Convey("Testing utils func", t, func() {
+		Convey("htmlHeader func", func() {
+			test := "test"
+			expected := "<h2>test</h2>"
+			So(htmlHeader(test), ShouldEqual, expected)
+		})
+	})
+}
+
+func TestApp(t *testing.T) {
 	webApp = nil
 	Convey("StartServer", t, func() {
 		configureServer()
