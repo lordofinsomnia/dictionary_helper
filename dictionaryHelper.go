@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/go-martini/martini"
 	"github.com/martini-contrib/render"
 	"net/http"
@@ -27,12 +26,9 @@ func main() {
 
 func configureServer() {
 	webApp = martini.Classic()
-	fmt.Println("webApp instance")
 	for _, curRoute := range routes {
-		fmt.Println("webApp adding route name: " + curRoute.name + " path " + curRoute.path)
 		webApp.Get(curRoute.path, curRoute.funcHandler)
 	}
-	fmt.Println("webApp setRender")
 	webApp.Use(render.Renderer())
 
 }

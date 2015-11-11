@@ -1,16 +1,17 @@
 package main
 
 import (
-	"fmt"
+	//	"fmt"
 	"github.com/go-martini/martini"
-	"github.com/martini-contrib/render"
+	//	"github.com/martini-contrib/render"
 	. "github.com/smartystreets/goconvey/convey"
 	"net/http"
 	"net/http/httptest"
-	"strings"
+	//	"strings"
 	"testing"
 )
 
+/*
 func startTestServer(path string, pathHandler martini.Handler) *httptest.ResponseRecorder {
 	webApp := martini.Classic()
 	curPath := path
@@ -19,7 +20,7 @@ func startTestServer(path string, pathHandler martini.Handler) *httptest.Respons
 	webApp.Use(render.Renderer())
 
 	return getResponse(webApp, curPath)
-}
+}*/
 
 func getResponse(webApp *martini.ClassicMartini, path string) *httptest.ResponseRecorder {
 	request, _ := http.NewRequest("GET", path, nil)
@@ -28,6 +29,7 @@ func getResponse(webApp *martini.ClassicMartini, path string) *httptest.Response
 	return response
 }
 
+/*
 func traceError(testName string, t *testing.T, response *httptest.ResponseRecorder) {
 	t.Error(testName, " failed!")
 	t.Error("	code: ", response.Code)
@@ -76,7 +78,7 @@ func TestRouteLinkWorks(t *testing.T) {
 		}
 	}
 }
-
+*/
 func TestBdd(t *testing.T) {
 	webApp = nil
 	Convey("StartServer", t, func() {
@@ -115,7 +117,7 @@ func TestBdd(t *testing.T) {
 [martini] Started GET / for
 [martini] Completed 200 OK in 187.29µs
 2000000000	         0.00 ns/op
-*/
+
 func BenchmarkHomepage(b *testing.B) {
 	startTestServer("", homeHandler)
 }
