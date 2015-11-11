@@ -101,21 +101,18 @@ func TestApp(t *testing.T) {
 			for _, curRoute := range routes {
 				Convey("Route: "+curRoute.path+" works", func() {
 					response := getResponse(webApp, curRoute.path)
-					So(response.Code, ShouldEqual, http.StatusOK)
-					So(response.Body.String(), ShouldContainSubstring, curRoute.caption)
+					Convey("Http status OK", func() {
+						So(response.Code, ShouldEqual, http.StatusOK)
+					})
+					Convey("Has caption", func() {
+						So(response.Body.String(), ShouldContainSubstring, curRoute.caption)
+					})
+					Convey("Has source link", func() {
+						link := "<a href=\"/sources\">Sources</a>"
+						So(response.Body.String(), ShouldContainSubstring, link)
+					})
 				})
 			}
-
-			Convey("Has caption Dictionary Helper", func() {
-				response := getResponse(webApp, "/")
-				body := response.Body.String()
-				So(body, ShouldContainSubstring, "<h2>Dictionary Helper</h2>")
-			})
-			Convey("Has link sources", func() {
-				response := getResponse(webApp, "/")
-				body := response.Body.String()
-				So(body, ShouldContainSubstring, "sources")
-			})
 			Convey("Open link sources", func() {
 				response := getResponse(webApp, "/sources")
 				body := response.Body.String()
