@@ -123,14 +123,17 @@ func TestApp(t *testing.T) {
 								})
 							}
 						})
+						Convey("All links works", func() {
+							for _, curLink := range links {
+								Convey("link ok: "+curLink.caption, func() {
+									curLinkResponse := getResponse(webApp, curLink.path)
+									So(curLinkResponse.Code, ShouldEqual, http.StatusOK)
+								})
+							}
+						})
 					})
 				})
 			}
-			Convey("Open link sources", func() {
-				response := getResponse(webApp, "/sources")
-				body := response.Body.String()
-				So(body, ShouldContainSubstring, "<h2>Dictionary Helper - Sources</h2>")
-			})
 		})
 	})
 }
