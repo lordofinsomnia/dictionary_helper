@@ -92,6 +92,7 @@ func TestBdd(t *testing.T) {
 				Convey("Route: "+curRoute.path+" works", func() {
 					response := getResponse(webApp, curRoute.path)
 					So(response.Code, ShouldEqual, http.StatusOK)
+					So(response.Body.String(), ShouldContainSubstring, curRoute.caption)
 				})
 			}
 

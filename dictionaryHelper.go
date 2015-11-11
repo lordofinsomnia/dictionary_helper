@@ -13,13 +13,15 @@ type Route struct {
 	caption     string
 }
 
-/*
-var routes []Route
-*/
-
 var routes = [...]Route{
-	Route{name: "home", path: "/", funcHandler: homeHandler, caption: "<h2>Dictionary Helper</h2>"},
-	Route{name: "source", path: "/sources", funcHandler: sourcesHandler, caption: "<h2>Dictionary Helper - Sources</h2>"}}
+	Route{name: "home",
+		path:        "/",
+		funcHandler: homeHandler,
+		caption:     htmlHeader("Dictionary Helper")},
+	Route{name: "source",
+		path:        "/sources",
+		funcHandler: sourcesHandler,
+		caption:     htmlHeader("Dictionary Helper - Sources")}}
 
 var webApp *martini.ClassicMartini
 
@@ -27,8 +29,13 @@ func main() {
 	configureServer()
 	startServer()
 }
+
 func startServer() {
 	webApp.Run()
+}
+
+func htmlHeader(withOutHeader string) string {
+	return "<h2>" + withOutHeader + "</h2>"
 }
 
 func configureServer() {
