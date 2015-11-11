@@ -84,26 +84,22 @@ func TestBdd(t *testing.T) {
 		Convey("Server started?", func() {
 			So(webApp, ShouldNotBeNil)
 		})
-		Convey("Has caption \"Dictionary Helper\"", func() {
+		Convey("Has caption Dictionary Helper", func() {
 			response := getResponse(webApp, "/")
 			body := response.Body.String()
 			So(body, ShouldContainSubstring, "<h2>Dictionary Helper</h2>")
 		})
-		Convey("Open link \"sources\"", func() {
+		Convey("Has link sources", func() {
+			response := getResponse(webApp, "/")
+			body := response.Body.String()
+			So(body, ShouldContainSubstring, "sources")
+		})
+		Convey("Open link sources", func() {
 			response := getResponse(webApp, "/sources")
 			body := response.Body.String()
 			So(body, ShouldContainSubstring, "<h2>Dictionary Helper - Sources</h2>")
 		})
 	})
-	/*
-
-
-		Convey("Has link \"sources\"", t, func() {
-			Convey("Open link \"sources\"", func() {
-				Convey("Has caption \"Dictionary Helper - Sources\"", nil)
-			})
-		})
-	})*/
 }
 
 /*
