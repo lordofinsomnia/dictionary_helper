@@ -64,14 +64,7 @@ func TestSources(t *testing.T) {
 		response := getResponse(webApp, "/sources")
 		Convey("Sources works", func() {
 			Convey("Has all gui items", func() {
-				lblCaption := htmlLabel("caption", "caption")
-				edtCaption := htmlAddNewLine(htmlInput("caption", "caption"))
-				lblYear := htmlLabel("year", "year")
-				edtYear := htmlAddNewLine(htmlInput("year", "year"))
-				lblShortName := htmlLabel("shortName", "shortName")
-				edtShortName := htmlAddNewLine(htmlInput("shortName", "shortName"))
-				controls := lblCaption + edtCaption + lblYear + edtYear + lblShortName + edtShortName
-				grpSource := htmlGroupBox("source", controls)
+				grpSource := createSourcePage()
 				Convey("Has source groupbox", func() {
 					Convey("Has groupbox caption", func() {
 						So(response.Body.String(), ShouldContainSubstring, grpSource)
