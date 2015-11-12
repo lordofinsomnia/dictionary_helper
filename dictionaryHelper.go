@@ -55,6 +55,10 @@ func htmlLabel(name string, caption string) string {
 	return "<label for=\"" + name + "\">" + caption + "</label>"
 }
 
+func htmlGroupBox(caption string, controls string) string {
+	return "<fieldset><legend>" + caption + "</legend>" + controls + "</fieldset>"
+}
+
 func htmlInput(name string, caption string) string {
 	return "<input type=\"text\">" + caption + "</input>"
 }

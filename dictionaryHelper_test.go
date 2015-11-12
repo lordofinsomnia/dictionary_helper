@@ -40,6 +40,15 @@ func TestUtils(t *testing.T) {
 			expected := "<input type=\"text\">test</input>"
 			So(htmlInput(name, caption), ShouldEqual, expected)
 		})
+		Convey("htmlGroupBox func", func() {
+			name := "test"
+			caption := "test"
+			expected := "<fieldset><legend>test</legend><label for=\"test\">test</label><br><input type=\"text\">test</input></fieldset>"
+			label := htmlLabel(name, caption)
+			input := htmlInput(name, caption)
+			controls := label + "<br>" + input
+			So(htmlGroupBox(name, controls), ShouldEqual, expected)
+		})
 	})
 }
 
@@ -92,34 +101,40 @@ func TestSources(t *testing.T) {
 		response := getResponse(webApp, "/sources")
 		Convey("Sources works", func() {
 			Convey("Has all gui items", func() {
-				Convey("Has caption", func() {
-					Convey("Has caption label", func() {
-						label := htmlLabel("caption", "caption")
-						So(response.Body.String(), ShouldContainSubstring, label)
+				Convey("Has source groupbox", func() {
+					Convey("Has groupbox caption", func() {
+						source := htmlGroupBox("source", "test")
+						So(response.Body.String(), ShouldContainSubstring, source)
 					})
-					Convey("Has caption editbox", func() {
-						editbox := htmlInput("caption", "caption")
-						So(response.Body.String(), ShouldContainSubstring, editbox)
+					Convey("Has caption", func() {
+						Convey("Has caption label", func() {
+							label := htmlLabel("caption", "caption")
+							So(response.Body.String(), ShouldContainSubstring, label)
+						})
+						Convey("Has caption editbox", func() {
+							editbox := htmlInput("caption", "caption")
+							So(response.Body.String(), ShouldContainSubstring, editbox)
+						})
 					})
-				})
-				Convey("Has year", func() {
-					Convey("Has year label", func() {
-						label := htmlLabel("year", "year")
-						So(response.Body.String(), ShouldContainSubstring, label)
+					Convey("Has year", func() {
+						Convey("Has year label", func() {
+							label := htmlLabel("year", "year")
+							So(response.Body.String(), ShouldContainSubstring, label)
+						})
+						Convey("Has year editbox", func() {
+							editbox := htmlInput("year", "year")
+							So(response.Body.String(), ShouldContainSubstring, editbox)
+						})
 					})
-					Convey("Has year editbox", func() {
-						editbox := htmlInput("year", "year")
-						So(response.Body.String(), ShouldContainSubstring, editbox)
-					})
-				})
-				Convey("Has shortname", func() {
-					Convey("Has shortname label", func() {
-						label := htmlLabel("shortName", "shortName")
-						So(response.Body.String(), ShouldContainSubstring, label)
-					})
-					Convey("Has shortname editbox", func() {
-						editbox := htmlInput("shortName", "shortName")
-						So(response.Body.String(), ShouldContainSubstring, editbox)
+					Convey("Has shortname", func() {
+						Convey("Has shortname label", func() {
+							label := htmlLabel("shortName", "shortName")
+							So(response.Body.String(), ShouldContainSubstring, label)
+						})
+						Convey("Has shortname editbox", func() {
+							editbox := htmlInput("shortName", "shortName")
+							So(response.Body.String(), ShouldContainSubstring, editbox)
+						})
 					})
 				})
 			})
