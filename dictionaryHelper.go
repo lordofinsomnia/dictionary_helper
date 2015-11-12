@@ -63,6 +63,10 @@ func htmlInput(name string, caption string) string {
 	return "<input type=\"text\">" + caption + "</input>"
 }
 
+func htmlAddNewLine(html string) string {
+	return html + "<br>"
+}
+
 func configureServer() {
 	webApp = martini.Classic()
 	for _, curRoute := range routes {
