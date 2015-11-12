@@ -51,6 +51,14 @@ func htmlLink(path string, caption string) string {
 	return "<a href=\"" + path + "\">" + caption + "</a>"
 }
 
+func htmlLabel(name string, caption string) string {
+	return "<label for=\"" + name + "\">" + caption + "</label>"
+}
+
+func htmlInput(name string, caption string) string {
+	return "<input type=\"text\">" + caption + "</input>"
+}
+
 func configureServer() {
 	webApp = martini.Classic()
 	for _, curRoute := range routes {

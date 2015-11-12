@@ -92,6 +92,18 @@ func TestUtils(t *testing.T) {
 			expected := "<a href=\"/test\">test</a>"
 			So(htmlLink(path, caption), ShouldEqual, expected)
 		})
+		Convey("htmlLabel func", func() {
+			name := "test"
+			caption := "test"
+			expected := "<label for=\"test\">test</label>"
+			So(htmlLabel(name, caption), ShouldEqual, expected)
+		})
+		Convey("htmlInput func", func() {
+			name := "test"
+			caption := "test"
+			expected := "<input type=\"text\">test</input>"
+			So(htmlInput(name, caption), ShouldEqual, expected)
+		})
 	})
 }
 
@@ -138,24 +150,41 @@ func TestApp(t *testing.T) {
 	})
 }
 func TestSources(t *testing.T) {
-	Convey("Sources works", t, func() {
-		Convey("Has all gui items", func() {
-			Convey("Has caption", func() {
-				Convey("Has caption label", func() {
+	webApp = nil
+	Convey("StartServer", t, func() {
+		configureServer()
+		response := getResponse(webApp, "/sources")
+		Convey("Sources works", func() {
+			Convey("Has all gui items", func() {
+				Convey("Has caption", func() {
+					Convey("Has caption label", func() {
+						label := htmlLabel("caption", "caption")
+						So(response.Body.String(), ShouldContainSubstring, label)
+					})
+					Convey("Has caption editbox", func() {
+						editbox := htmlInput("caption", "caption")
+						So(response.Body.String(), ShouldContainSubstring, editbox)
+					})
 				})
-				Convey("Has caption editbox", func() {
+				Convey("Has year", func() {
+					Convey("Has year label", func() {
+						label := htmlLabel("year", "year")
+						So(response.Body.String(), ShouldContainSubstring, label)
+					})
+					Convey("Has year editbox", func() {
+						editbox := htmlInput("year", "year")
+						So(response.Body.String(), ShouldContainSubstring, editbox)
+					})
 				})
-			})
-			Convey("Has year", func() {
-				Convey("Has year label", func() {
-				})
-				Convey("Has year editbox", func() {
-				})
-			})
-			Convey("Has shortname", func() {
-				Convey("Has shortname label", func() {
-				})
-				Convey("Has shortname editbox", func() {
+				Convey("Has shortname", func() {
+					Convey("Has shortname label", func() {
+						label := htmlLabel("shortName", "shortName")
+						So(response.Body.String(), ShouldContainSubstring, label)
+					})
+					Convey("Has shortname editbox", func() {
+						editbox := htmlInput("shortName", "shortName")
+						So(response.Body.String(), ShouldContainSubstring, editbox)
+					})
 				})
 			})
 		})
