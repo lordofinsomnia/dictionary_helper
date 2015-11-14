@@ -1,5 +1,9 @@
 package main
 
+func packCaption(caption string) string {
+	return " - " + caption
+}
+
 func htmlHeader(withOutHeader string) string {
 	return "<h2>" + withOutHeader + "</h2>"
 }

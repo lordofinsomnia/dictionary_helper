@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/go-martini/martini"
 	"github.com/martini-contrib/render"
+	"html/template"
 	"net/http"
 )
 
@@ -22,6 +23,7 @@ type Link struct {
 type Page struct {
 	Caption string
 	Body    string
+	Tmpl    *template.Template
 }
 
 var links = [...]Link{Link{caption: "Home", path: "/"},
@@ -67,12 +69,15 @@ func homeHandler(r render.Render) {
 	var homePage Page
 	homePage.Caption = ""
 	homePage.Body = ""
+	homePage.Tmpl = nil
 	r.HTML(http.StatusOK, "index", homePage)
 }
 
 func sourcesHandler(r render.Render) {
 	var sourcePage Page
-	sourcePage.Caption = " - Sources"
-	sourcePage.Body = ""
+	sourcePage.Caption = packCaption("Sources")
+	sourcePage.Body = createSourcePage()
+	sourcePage.Tmpl = nil
+
 	r.HTML(http.StatusOK, "index", sourcePage)
 }

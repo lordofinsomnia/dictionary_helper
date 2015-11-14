@@ -30,6 +30,11 @@ func TestHTMLUtils(t *testing.T) {
 			expected := "<input type=\"text\">test</input>"
 			So(htmlInput(name, caption), ShouldEqual, expected)
 		})
+		Convey("packCaption func", func() {
+			caption := "test"
+			expected := " - test"
+			So(packCaption(caption), ShouldEqual, expected)
+		})
 		Convey("htmlAddNewLine func", func() {
 			name := "test"
 			caption := "test"
