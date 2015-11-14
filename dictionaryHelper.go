@@ -64,10 +64,10 @@ func configureServer() {
 }
 
 func homeHandler(r render.Render) {
-	var sourcePage Page
-	sourcePage.Caption = ""
-	sourcePage.Body = ""
-	r.HTML(http.StatusOK, "index", sourcePage)
+	var homePage Page
+	homePage.Caption = ""
+	homePage.Body = ""
+	r.HTML(http.StatusOK, "index", homePage)
 }
 
 func sourcesHandler(r render.Render) {
