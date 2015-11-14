@@ -1,5 +1,10 @@
 package main
 
+import (
+	"github.com/martini-contrib/render"
+	"net/http"
+)
+
 var lblCaption string
 var edtCaption string
 var lblYear string
@@ -8,6 +13,15 @@ var lblShortName string
 var edtShortName string
 var controls string
 var grpSource string
+
+func sourcesHandler(r render.Render) {
+	var sourcePage Page
+	sourcePage.Caption = packCaption("Sources")
+	sourcePage.Body = createSourcePage()
+	sourcePage.Tmpl = nil
+
+	r.HTML(http.StatusOK, "index", sourcePage)
+}
 
 func createGrpSource() string {
 	lblCaption = htmlLabel("caption", "caption:")

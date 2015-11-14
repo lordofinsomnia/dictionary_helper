@@ -72,12 +72,3 @@ func homeHandler(r render.Render) {
 	homePage.Tmpl = nil
 	r.HTML(http.StatusOK, "index", homePage)
 }
-
-func sourcesHandler(r render.Render) {
-	var sourcePage Page
-	sourcePage.Caption = packCaption("Sources")
-	sourcePage.Body = createSourcePage()
-	sourcePage.Tmpl = nil
-
-	r.HTML(http.StatusOK, "index", sourcePage)
-}
