@@ -19,6 +19,11 @@ type Link struct {
 	html    string
 }
 
+type Page struct {
+	Caption string
+	Body    string
+}
+
 var links = [...]Link{Link{caption: "Home", path: "/"},
 	Link{caption: "Sources", path: "/sources"}}
 
@@ -48,13 +53,26 @@ func configureServer() {
 	for _, curRoute := range routes {
 		webApp.Get(curRoute.path, curRoute.funcHandler)
 	}
-	webApp.Use(render.Renderer())
+	webApp.Use(render.Renderer(render.Options{
+		Directory:  "templates",
+		Layout:     "layout",
+		Extensions: []string{".tmpl", ".html"},
+		Delims:     render.Delims{"{{", "}}"},
+		Charset:    "UTF-8",
+		IndentJSON: true}))
+
 }
 
 func homeHandler(r render.Render) {
-	r.HTML(http.StatusOK, "index", "")
+	var sourcePage Page
+	sourcePage.Caption = ""
+	sourcePage.Body = ""
+	r.HTML(http.StatusOK, "index", sourcePage)
 }
 
 func sourcesHandler(r render.Render) {
-	r.HTML(http.StatusOK, "index", " - Sources")
+	var sourcePage Page
+	sourcePage.Caption = " - Sources"
+	sourcePage.Body = ""
+	r.HTML(http.StatusOK, "index", sourcePage)
 }
