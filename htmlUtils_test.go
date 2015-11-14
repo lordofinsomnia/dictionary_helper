@@ -46,13 +46,15 @@ func TestHTMLUtils(t *testing.T) {
 			name := "test"
 			caption := "test"
 			expected := "<fieldset>\n"
-			expected += "<legend>test</legend>\n"
-			expected += "<label for=\"test\">test</label><br>" + "<input type=\"text\">"
+			expected += htmlIndent("<legend>test</legend>\n")
+			expected += htmlIndent("<label for=\"test\">test</label><br>" + "<input type=\"text\">" + "\n")
 			expected += "</fieldset>"
 			label := htmlLabel(name, caption)
 			input := htmlInput(name, caption)
 			controls := label + "<br>" + input
-			So(htmlGroupBox(name, controls), ShouldEqual, expected)
+			html := htmlGroupBox(name, controls)
+
+			So(html, ShouldEqual, expected)
 		})
 	})
 }

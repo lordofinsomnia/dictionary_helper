@@ -18,14 +18,18 @@ func htmlLabel(name string, caption string) string {
 
 func htmlGroupBox(caption string, controls string) string {
 	html := "<fieldset>\n"
-	html += "<legend>" + caption + "</legend>\n"
-	html += controls
+	html += htmlIndent("<legend>" + caption + "</legend>" + "\n")
+	html += htmlIndent(controls + "\n")
 	html += "</fieldset>"
 	return html
 }
 
 func htmlInput(name string, caption string) string {
 	return "<input type=\"text\">"
+}
+
+func htmlIndent(html string) string {
+	return "  " + html
 }
 
 func htmlAddNewLine(html string) string {
