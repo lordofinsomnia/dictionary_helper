@@ -64,7 +64,7 @@ func TestSources(t *testing.T) {
 		response := getResponse(webApp, "/sources")
 		Convey("Sources works", func() {
 			Convey("Has all gui items", func() {
-				grpSource := createSourcePage()
+				createSourcePage()
 				Convey("Has source groupbox", func() {
 					Convey("Has groupbox caption", func() {
 						So(response.Body.String(), ShouldContainSubstring, grpSource)

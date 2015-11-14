@@ -16,7 +16,9 @@ func createGrpSource() string {
 	edtYear = htmlAddNewLine(htmlInput("year", "year:"))
 	lblShortName = htmlLabel("shortName", "shortName:")
 	edtShortName = htmlAddNewLine(htmlInput("shortName", "shortName"))
-	controls = lblCaption + edtCaption + lblYear + edtYear + lblShortName + edtShortName
+	controls = lblCaption + edtCaption + "\n"
+	controls += lblYear + edtYear + "\n"
+	controls += lblShortName + edtShortName + "\n"
 	grpSource = htmlGroupBox("source", controls)
 	return grpSource
 }

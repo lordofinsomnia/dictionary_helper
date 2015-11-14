@@ -17,7 +17,11 @@ func htmlLabel(name string, caption string) string {
 }
 
 func htmlGroupBox(caption string, controls string) string {
-	return "<fieldset><legend>" + caption + "</legend>" + controls + "</fieldset>"
+	html := "<fieldset>\n"
+	html += "<legend>" + caption + "</legend>\n"
+	html += controls
+	html += "</fieldset>"
+	return html
 }
 
 func htmlInput(name string, caption string) string {

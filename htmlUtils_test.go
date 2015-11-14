@@ -45,7 +45,10 @@ func TestHTMLUtils(t *testing.T) {
 		Convey("htmlGroupBox func", func() {
 			name := "test"
 			caption := "test"
-			expected := "<fieldset><legend>test</legend><label for=\"test\">test</label><br><input type=\"text\"></fieldset>"
+			expected := "<fieldset>\n"
+			expected += "<legend>test</legend>\n"
+			expected += "<label for=\"test\">test</label><br>" + "<input type=\"text\">"
+			expected += "</fieldset>"
 			label := htmlLabel(name, caption)
 			input := htmlInput(name, caption)
 			controls := label + "<br>" + input
