@@ -10,11 +10,11 @@ var controls string
 var grpSource string
 
 func createGrpSource() string {
-	lblCaption = htmlLabel("caption", "caption")
+	lblCaption = htmlLabel("caption", "caption:")
 	edtCaption = htmlAddNewLine(htmlInput("caption", "caption"))
-	lblYear = htmlLabel("year", "year")
-	edtYear = htmlAddNewLine(htmlInput("year", "year"))
-	lblShortName = htmlLabel("shortName", "shortName")
+	lblYear = htmlLabel("year", "year:")
+	edtYear = htmlAddNewLine(htmlInput("year", "year:"))
+	lblShortName = htmlLabel("shortName", "shortName:")
 	edtShortName = htmlAddNewLine(htmlInput("shortName", "shortName"))
 	controls = lblCaption + edtCaption + lblYear + edtYear + lblShortName + edtShortName
 	grpSource = htmlGroupBox("source", controls)

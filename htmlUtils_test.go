@@ -27,7 +27,7 @@ func TestHTMLUtils(t *testing.T) {
 		Convey("htmlInput func", func() {
 			name := "test"
 			caption := "test"
-			expected := "<input type=\"text\">test</input>"
+			expected := "<input type=\"text\">"
 			So(htmlInput(name, caption), ShouldEqual, expected)
 		})
 		Convey("packCaption func", func() {
@@ -38,14 +38,14 @@ func TestHTMLUtils(t *testing.T) {
 		Convey("htmlAddNewLine func", func() {
 			name := "test"
 			caption := "test"
-			expectedLbl := "<input type=\"text\">test</input><br>"
+			expectedLbl := "<input type=\"text\"><br>"
 			So(htmlAddNewLine(""), ShouldEqual, "<br>")
 			So(htmlAddNewLine(htmlInput(name, caption)), ShouldEqual, expectedLbl)
 		})
 		Convey("htmlGroupBox func", func() {
 			name := "test"
 			caption := "test"
-			expected := "<fieldset><legend>test</legend><label for=\"test\">test</label><br><input type=\"text\">test</input></fieldset>"
+			expected := "<fieldset><legend>test</legend><label for=\"test\">test</label><br><input type=\"text\"></fieldset>"
 			label := htmlLabel(name, caption)
 			input := htmlInput(name, caption)
 			controls := label + "<br>" + input

@@ -21,7 +21,7 @@ func htmlGroupBox(caption string, controls string) string {
 }
 
 func htmlInput(name string, caption string) string {
-	return "<input type=\"text\">" + caption + "</input>"
+	return "<input type=\"text\">"
 }
 
 func htmlAddNewLine(html string) string {
