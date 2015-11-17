@@ -27,11 +27,12 @@ func TestApp(t *testing.T) {
 			for _, curRoute := range routes {
 				Convey("Route: "+curRoute.path+" works", func() {
 					response := getResponse(webApp, curRoute.path)
+					responseStr := response.Body.String()
 					Convey("Http status OK", func() {
 						So(response.Code, ShouldEqual, http.StatusOK)
 					})
 					Convey("Has caption", func() {
-						So(response.Body.String(), ShouldContainSubstring, curRoute.caption)
+						So(responseStr, ShouldContainSubstring, curRoute.caption)
 					})
 					Convey("Link slice found", func() {
 						So(links, ShouldNotBeEmpty)
@@ -39,7 +40,7 @@ func TestApp(t *testing.T) {
 							for _, curLink := range links {
 								Convey("Has link: "+curLink.caption, func() {
 									link := htmlLink(curLink.path, curLink.caption)
-									So(response.Body.String(), ShouldContainSubstring, link)
+									So(responseStr, ShouldContainSubstring, link)
 								})
 							}
 						})
@@ -62,35 +63,36 @@ func TestSources(t *testing.T) {
 	Convey("StartServer", t, func() {
 		configureServer()
 		response := getResponse(webApp, "/sources")
+		responseStr := response.Body.String()
 		Convey("Sources works", func() {
 			Convey("Has all gui items", func() {
 				createSourcePage()
 				Convey("Has source groupbox", func() {
 					Convey("Has groupbox caption", func() {
-						So(response.Body.String(), ShouldContainSubstring, grpSource)
+						So(responseStr, ShouldContainSubstring, grpSource)
 					})
 					Convey("Has caption", func() {
 						Convey("Has caption label", func() {
-							So(response.Body.String(), ShouldContainSubstring, lblCaption)
+							So(responseStr, ShouldContainSubstring, lblCaption)
 						})
 						Convey("Has caption editbox", func() {
-							So(response.Body.String(), ShouldContainSubstring, edtCaption)
+							So(responseStr, ShouldContainSubstring, edtCaption)
 						})
 					})
 					Convey("Has year", func() {
 						Convey("Has year label", func() {
-							So(response.Body.String(), ShouldContainSubstring, lblYear)
+							So(responseStr, ShouldContainSubstring, lblYear)
 						})
 						Convey("Has year editbox", func() {
-							So(response.Body.String(), ShouldContainSubstring, edtYear)
+							So(responseStr, ShouldContainSubstring, edtYear)
 						})
 					})
 					Convey("Has shortname", func() {
 						Convey("Has shortname label", func() {
-							So(response.Body.String(), ShouldContainSubstring, lblShortName)
+							So(responseStr, ShouldContainSubstring, lblShortName)
 						})
 						Convey("Has shortname editbox", func() {
-							So(response.Body.String(), ShouldContainSubstring, edtShortName)
+							So(responseStr, ShouldContainSubstring, edtShortName)
 						})
 					})
 				})
