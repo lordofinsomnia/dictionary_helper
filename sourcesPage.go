@@ -35,11 +35,11 @@ func createGrpSource() string {
 	controls := htmlAddNewLine(lblCaption+edtCaption) + "\n"
 	controls += htmlAddNewLine(htmlIndent(lblYear+edtYear)) + "\n"
 	controls += htmlAddNewLine(htmlIndent(lblShortName + edtShortName))
-
 	grpSource = htmlGroupBox("source", controls)
 	return grpSource
 }
 func createSourcePage() string {
 	grpSource = createGrpSource()
-	return grpSource
+	controls := grpSource
+	return controls
 }
