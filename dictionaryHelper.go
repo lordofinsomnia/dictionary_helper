@@ -1,17 +1,16 @@
 package main
 
 import (
-	"github.com/go-martini/martini"
-	"github.com/martini-contrib/render"
+	"github.com/gin-gonic/gin"
 	"html/template"
-	"net/http"
+	//	"net/http"
 )
 
 type Route struct {
-	name        string
-	path        string
-	funcHandler martini.Handler
-	caption     string
+	name string
+	path string
+	//funcHandler martini.Handler
+	caption string
 }
 
 type Link struct {
@@ -31,15 +30,15 @@ var links = [...]Link{Link{caption: "Home", path: "/"},
 
 var routes = [...]Route{
 	Route{name: "home",
-		path:        "/",
-		funcHandler: homeHandler,
-		caption:     htmlHeader("Dictionary Helper")},
+		path: "/",
+		//funcHandler: homeHandler,
+		caption: htmlHeader("Dictionary Helper")},
 	Route{name: "source",
-		path:        "/sources",
-		funcHandler: sourcesHandler,
-		caption:     htmlHeader("Dictionary Helper - Sources")}}
+		path: "/sources",
+		//funcHandler: sourcesHandler,
+		caption: htmlHeader("Dictionary Helper - Sources")}}
 
-var webApp *martini.ClassicMartini
+//var webApp *martini.ClassicMartini
 
 func main() {
 	configureServer()
@@ -47,11 +46,11 @@ func main() {
 }
 
 func startServer() {
-	webApp.Run()
+	//	webApp.Run()
 }
 
 func configureServer() {
-	webApp = martini.Classic()
+	/*webApp = gin.Default()
 	for _, curRoute := range routes {
 		webApp.Get(curRoute.path, curRoute.funcHandler)
 	}
@@ -62,13 +61,13 @@ func configureServer() {
 		Delims:     render.Delims{"{{", "}}"},
 		Charset:    "UTF-8",
 		IndentJSON: true}))
-
+	*/
 }
 
-func homeHandler(r render.Render) {
+func homeHandler(c *gin.Context) {
 	var homePage Page
 	homePage.Caption = ""
 	homePage.Body = ""
 	homePage.Tmpl = nil
-	r.HTML(http.StatusOK, "index", homePage)
+	//r.HTML(http.StatusOK, "index", homePage)
 }
