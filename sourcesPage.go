@@ -1,7 +1,8 @@
 package main
 
 import (
-	"github.com/martini-contrib/render"
+	"github.com/gin-gonic/gin"
+	//"github.com/martini-contrib/render"
 	"net/http"
 )
 
@@ -14,13 +15,13 @@ var edtShortName string
 var controls string
 var grpSource string
 
-func sourcesHandler(r render.Render) {
+func sourcesHandler(c *gin.Context) {
 	var sourcePage Page
 	sourcePage.Caption = packCaption("Sources")
 	sourcePage.Body = createSourcePage()
 	sourcePage.Tmpl = nil
-
-	r.HTML(http.StatusOK, "index", sourcePage)
+	c.HTML(http.StatusOK, "sources.tmpl", gin.H{"Caption": packCaption("Sources")})
+	//r.HTML(http.StatusOK, "index", sourcePage)
 }
 
 func createGrpSource() string {

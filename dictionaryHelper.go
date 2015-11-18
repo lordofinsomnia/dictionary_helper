@@ -3,14 +3,14 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"html/template"
-	//	"net/http"
+	"net/http"
 )
 
 type Route struct {
-	name string
-	path string
-	//funcHandler martini.Handler
-	caption string
+	name        string
+	path        string
+	funcHandler gin.HandlerFunc
+	caption     string
 }
 
 type Link struct {
@@ -30,15 +30,15 @@ var links = [...]Link{Link{caption: "Home", path: "/"},
 
 var routes = [...]Route{
 	Route{name: "home",
-		path: "/",
-		//funcHandler: homeHandler,
-		caption: htmlHeader("Dictionary Helper")},
+		path:        "/",
+		funcHandler: homeHandler,
+		caption:     htmlHeader("Dictionary Helper")},
 	Route{name: "source",
-		path: "/sources",
-		//funcHandler: sourcesHandler,
-		caption: htmlHeader("Dictionary Helper - Sources")}}
+		path:        "/sources",
+		funcHandler: sourcesHandler,
+		caption:     htmlHeader("Dictionary Helper - Sources")}}
 
-//var webApp *martini.ClassicMartini
+var webApp *gin.Engine
 
 func main() {
 	configureServer()
@@ -46,21 +46,22 @@ func main() {
 }
 
 func startServer() {
-	//	webApp.Run()
+	webApp.Run(":3000")
 }
 
 func configureServer() {
-	/*webApp = gin.Default()
+	webApp = gin.Default()
+	webApp.LoadHTMLGlob("templates/*")
 	for _, curRoute := range routes {
-		webApp.Get(curRoute.path, curRoute.funcHandler)
+		webApp.GET(curRoute.path, curRoute.funcHandler)
 	}
-	webApp.Use(render.Renderer(render.Options{
-		Directory:  "templates",
-		Layout:     "layout",
-		Extensions: []string{".tmpl", ".html"},
-		Delims:     render.Delims{"{{", "}}"},
-		Charset:    "UTF-8",
-		IndentJSON: true}))
+	/*webApp.Use(render.Renderer(render.Options{
+	Directory:  "templates",
+	Layout:     "layout",
+	Extensions: []string{".tmpl", ".html"},
+	Delims:     render.Delims{"{{", "}}"},
+	Charset:    "UTF-8",
+	IndentJSON: true}))
 	*/
 }
 
@@ -69,5 +70,5 @@ func homeHandler(c *gin.Context) {
 	homePage.Caption = ""
 	homePage.Body = ""
 	homePage.Tmpl = nil
-	//r.HTML(http.StatusOK, "index", homePage)
+	c.HTML(http.StatusOK, "index.tmpl", gin.H{"Caption": ""})
 }
