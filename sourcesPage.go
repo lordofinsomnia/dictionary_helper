@@ -20,7 +20,7 @@ func sourcesHandler(c *gin.Context) {
 	sourcePage.Caption = packCaption("Sources")
 	sourcePage.Body = createSourcePage()
 	sourcePage.Tmpl = nil
-	c.HTML(http.StatusOK, "sources.tmpl", gin.H{"Caption": packCaption("Sources")})
+	c.HTML(http.StatusOK, "index.tmpl", gin.H{"Caption": packCaption("Sources")})
 	//r.HTML(http.StatusOK, "index", sourcePage)
 }
 
