@@ -2,7 +2,6 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	//"github.com/martini-contrib/render"
 	"net/http"
 )
 

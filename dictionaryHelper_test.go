@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/gin-gonic/gin"
 	. "github.com/smartystreets/goconvey/convey"
 	"net/http"
 	"net/http/httptest"
@@ -119,36 +120,27 @@ func BenchmarkHomepage(b *testing.B) {
 }
 
 /*
-BenchmarkAllRoutes-8	[martini] Started GET / for
-[martini] Completed 200 OK in 158.72µs
-[martini] Started GET /sources for
-[martini] Completed 200 OK in 140.295µs
-[martini] Started GET / for
-[martini] Completed 200 OK in 168.926µs
-[martini] Started GET /sources for
-[martini] Completed 200 OK in 94.797µs
-[martini] Started GET / for
-[martini] Completed 200 OK in 176.606µs
-[martini] Started GET /sources for
-[martini] Completed 200 OK in 144.925µs
-[martini] Started GET / for
-[martini] Completed 200 OK in 163.13µs
-[martini] Started GET /sources for
-[martini] Completed 200 OK in 140.412µs
-[martini] Started GET / for
-[martini] Completed 200 OK in 151.014µs
-[martini] Started GET /sources for
-[martini] Completed 200 OK in 108.611µs
-[martini] Started GET / for
-[martini] Completed 200 OK in 176.237µs
-[martini] Started GET /sources for
-[martini] Completed 200 OK in 120.532µs
+PASS
+BenchmarkAllRoutes-8	[GIN] 2015/11/19 - 21:19:07 | 200 |      65.965µs |  |   GET     /
+[GIN] 2015/11/19 - 21:19:07 | 200 |      13.281µs |  |   GET     /sources
+[GIN] 2015/11/19 - 21:19:07 | 200 |      67.487µs |  |   GET     /
+[GIN] 2015/11/19 - 21:19:07 | 200 |      13.881µs |  |   GET     /sources
+[GIN] 2015/11/19 - 21:19:07 | 200 |      64.629µs |  |   GET     /
+[GIN] 2015/11/19 - 21:19:07 | 200 |      13.672µs |  |   GET     /sources
+[GIN] 2015/11/19 - 21:19:07 | 200 |      70.156µs |  |   GET     /
+[GIN] 2015/11/19 - 21:19:07 | 200 |       14.09µs |  |   GET     /sources
+[GIN] 2015/11/19 - 21:19:07 | 200 |      64.254µs |  |   GET     /
+[GIN] 2015/11/19 - 21:19:07 | 200 |      13.413µs |  |   GET     /sources
+[GIN] 2015/11/19 - 21:19:07 | 200 |      70.635µs |  |   GET     /
+[GIN] 2015/11/19 - 21:19:07 | 200 |      13.966µs |  |   GET     /sources
 2000000000	         0.00 ns/op
+
 */
 func BenchmarkAllRoutes(b *testing.B) {
-	/*webApp = nil
+	webApp = nil
 	configureServer()
+	gin.SetMode(gin.ReleaseMode)
 	for _, curRoute := range routes {
-		getResponse(webApp, curRoute.path)
-	}*/
+		getResponse(webApp, "GET", curRoute.path)
+	}
 }
