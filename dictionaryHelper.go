@@ -1,9 +1,12 @@
 package main
 
 import (
+	"fmt"
+	"github.com/gin-gonic/contrib/renders/multitemplate"
 	"github.com/gin-gonic/gin"
 	"html/template"
 	"net/http"
+	"path/filepath"
 )
 
 type Route struct {
@@ -22,7 +25,7 @@ type Link struct {
 type Page struct {
 	Caption string
 	Body    string
-	Tmpl    *template.Template
+	Tmpl    string
 }
 
 var links = [...]Link{Link{caption: "Home", path: "/"},
@@ -39,6 +42,9 @@ var routes = [...]Route{
 		caption:     htmlHeader("Dictionary Helper - Sources")}}
 
 var webApp *gin.Engine
+var indexTempl *template.Template
+var sourceTempl *template.Template
+var templates map[string]*template.Template
 
 func main() {
 	configureServer()
@@ -50,25 +56,72 @@ func startServer() {
 }
 
 func configureServer() {
+	templates = nil
+	initTemplates()
 	webApp = gin.Default()
-	webApp.LoadHTMLGlob("templates/*")
+	webApp.HTMLRender = createMyRender()
 	for _, curRoute := range routes {
 		webApp.GET(curRoute.path, curRoute.funcHandler)
 	}
-	/*webApp.Use(render.Renderer(render.Options{
-	Directory:  "templates",
-	Layout:     "layout",
-	Extensions: []string{".tmpl", ".html"},
-	Delims:     render.Delims{"{{", "}}"},
-	Charset:    "UTF-8",
-	IndentJSON: true}))
-	*/
+}
+
+// Load templates on program initialisation
+func initTemplates() {
+	if templates == nil {
+		templates = make(map[string]*template.Template)
+	}
+
+	templatesDir := "./templates"
+
+	fmt.Println("templates:")
+	fmt.Println(templatesDir)
+	templateFiles, err := filepath.Glob(templatesDir + "/*.tmpl")
+	if err != nil {
+		panic(err)
+	}
+
+	// Generate our templates map from our layouts/ and includes/ directories
+	for _, templateFile := range templateFiles {
+		templates[filepath.Base(templateFile)] = template.Must(template.ParseFiles(templateFiles...))
+	}
+	fmt.Println("templates:")
+	fmt.Println(templates)
+	fmt.Println("template files:")
+	fmt.Println(templateFiles)
+
+}
+
+func renderTemplate(w http.ResponseWriter, name string, data map[string]interface{}) error {
+	// Ensure the template exists in the map.
+	tmpl, ok := templates[name]
+	if !ok {
+		return fmt.Errorf("The template %s does not exist.", name)
+	}
+
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	tmpl.ExecuteTemplate(w, "base", data)
+
+	return nil
+}
+
+func createMyRender() multitemplate.Render {
+	r := multitemplate.New()
+	for curTemplateName, _ := range templates {
+		r.Add(curTemplateName, templates[curTemplateName])
+	}
+	fmt.Println("templates:")
+	fmt.Println(templates)
+	fmt.Println("r:")
+	fmt.Println(r)
+	return r
 }
 
 func homeHandler(c *gin.Context) {
 	var homePage Page
 	homePage.Caption = ""
 	homePage.Body = ""
-	homePage.Tmpl = nil
-	c.HTML(http.StatusOK, "index.tmpl", gin.H{"Caption": ""})
+	homePage.Tmpl = ""
+
+	c.HTML(http.StatusOK, "index.tmpl", gin.H{})
+	//c.HTML(http.StatusOK, "header.tmpl", gin.H{"Caption": ""})
 }
