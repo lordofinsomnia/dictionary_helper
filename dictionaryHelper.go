@@ -1,12 +1,12 @@
 package main
 
 import (
-	"fmt"
-	"github.com/gin-gonic/contrib/renders/multitemplate"
+	//	"fmt"
+	//	"github.com/gin-gonic/contrib/renders/multitemplate"
 	"github.com/gin-gonic/gin"
 	"html/template"
 	"net/http"
-	"path/filepath"
+	//	"path/filepath"
 )
 
 type Route struct {
@@ -66,6 +66,7 @@ func configureServer() {
 	}
 }
 
+/*
 // Load templates on program initialisation
 func initTemplates() {
 	if templates == nil {
@@ -115,14 +116,8 @@ func createMyRender() multitemplate.Render {
 	fmt.Println("r:")
 	fmt.Println(r)
 	return r
-}
+}*/
 
 func homeHandler(c *gin.Context) {
-	var homePage Page
-	homePage.Caption = ""
-	homePage.Body = ""
-	homePage.Tmpl = ""
-
 	c.HTML(http.StatusOK, "home", gin.H{})
-	//c.HTML(http.StatusOK, "header.tmpl", gin.H{"Caption": ""})
 }
