@@ -57,9 +57,10 @@ func startServer() {
 
 func configureServer() {
 	templates = nil
-	initTemplates()
+	//initTemplates()
 	webApp = gin.Default()
-	webApp.HTMLRender = createMyRender()
+	webApp.LoadHTMLGlob("templates/*.tmpl")
+	//webApp.HTMLRender = createMyRender()
 	for _, curRoute := range routes {
 		webApp.GET(curRoute.path, curRoute.funcHandler)
 	}
@@ -122,6 +123,6 @@ func homeHandler(c *gin.Context) {
 	homePage.Body = ""
 	homePage.Tmpl = ""
 
-	c.HTML(http.StatusOK, "index.tmpl", gin.H{})
+	c.HTML(http.StatusOK, "home", gin.H{})
 	//c.HTML(http.StatusOK, "header.tmpl", gin.H{"Caption": ""})
 }
