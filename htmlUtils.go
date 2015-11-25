@@ -24,6 +24,26 @@ func htmlGroupBox(caption string, controls string) string {
 	return html
 }
 
+func htmlTable(rows []string) string {
+	html := "<table>\n"
+	for _, curRow := range rows {
+		html += htmlIndent(curRow) + "\n"
+	}
+	html += "</table>"
+	return html
+}
+
+func htmlTableRow(row string) string {
+	html := "<tr>" + "\n"
+	html += htmlIndent(row) + "\n"
+	html += "</tr>"
+	return html
+}
+
+func htmlTableColumn(row string) string {
+	return "<td>" + row + "</td>"
+}
+
 func htmlInput(name string, caption string) string {
 	return "<input type=\"text\">"
 }

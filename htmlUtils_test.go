@@ -42,6 +42,60 @@ func TestHTMLUtils(t *testing.T) {
 			So(htmlAddNewLine(""), ShouldEqual, "<br>")
 			So(htmlAddNewLine(htmlInput(name, caption)), ShouldEqual, expectedLbl)
 		})
+		Convey("htmlTableColumn func", func() {
+			name := "test"
+			expectedTableColumn := "<td>test</td>"
+			So(htmlTableColumn(name), ShouldEqual, expectedTableColumn)
+		})
+		Convey("htmlTableRow func", func() {
+			name := "test"
+			expectedTableRow := "<tr>" + "\n"
+			expectedTableRow += htmlIndent(name) + "\n"
+			expectedTableRow += "</tr>"
+			So(htmlTableRow(name), ShouldEqual, expectedTableRow)
+		})
+		Convey("htmlTable func", func() {
+			/*tableRow00 := "t00"
+			tableRow01 := "t01"
+			tableRow02 := "t02"
+
+			tableRow10 := "t10"
+			tableRow11 := "t11"
+			tableRow12 := "t12"
+			var tableRows []string
+			tableRows = make([]string, 2)
+
+			row1 := htmlIndent(htmlTableColumn(tableRow00) + htmlTableColumn(tableRow01) + htmlTableColumn(tableRow02))
+			row2 := htmlIndent(htmlTableColumn(tableRow10) + htmlTableColumn(tableRow11) + htmlTableColumn(tableRow12))
+			tableRows[0] = htmlIndent(htmlTableRow(row1))
+			tableRows[1] = htmlIndent(htmlTableRow(row2))
+
+			expectedTable := "<table>" + "\n"
+			for _, curRow := range tableRows {
+				expectedTable += curRow + "\n"
+			}
+			expectedTable += "</table>" + "\n"*/
+
+			var tableRows []string
+			tableRows = make([]string, 2)
+			tableRows[0] = "<tr>" + "\n"
+			tableRows[0] += "    <td>t00</td><td>t01</td><td>t02</td>" + "\n"
+			tableRows[0] += "  </tr>"
+			tableRows[1] = "<tr>" + "\n"
+			tableRows[1] += "    <td>t10</td><td>t11</td><td>t12</td>" + "\n"
+			tableRows[1] += "  </tr>"
+
+			expectedTable := "<table>" + "\n"
+			expectedTable += "  <tr>" + "\n"
+			expectedTable += "    <td>t00</td><td>t01</td><td>t02</td>" + "\n"
+			expectedTable += "  </tr>" + "\n"
+			expectedTable += "  <tr>" + "\n"
+			expectedTable += "    <td>t10</td><td>t11</td><td>t12</td>" + "\n"
+			expectedTable += "  </tr>" + "\n"
+			expectedTable += "</table>"
+
+			So(htmlTable(tableRows), ShouldEqual, expectedTable)
+		})
 		Convey("htmlGroupBox func", func() {
 			name := "test"
 			caption := "test"

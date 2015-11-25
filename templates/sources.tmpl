@@ -2,9 +2,20 @@
 {{template "header" .}}
 <fieldset>
   <legend>source</legend>
-  <label for="caption">caption:</label><input type="text"><br>
-  <label for="year">year:</label><input type="text"><br>
-  <label for="shortName">shortName:</label><input type="text"><br>
+    <table>
+      <tr>
+        <td><label for="caption">caption:</label></td>
+        <td><input type="text"></td>
+      </tr>
+      <tr>
+        <td><label for="year">year:</label></td>
+        <td><input type="text"></td>
+      </tr>
+      <tr>
+        <td><label for="shortName">shortName:</label></td>
+        <td><input type="text"></td>
+      </tr>
+    </table>
 </fieldset>
 {{template "footer"}}
 {{end}}
