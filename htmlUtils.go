@@ -1,57 +1,91 @@
 package main
 
+type HTML struct {
+	lines []string
+}
+
+func (html HTML) String() string {
+	strOut := ""
+	for _, curLine := range html.lines {
+		strOut += curLine
+	}
+	return strOut
+}
+func (html *HTML) addLine(line string) {
+	html.lines = append(html.lines, line)
+}
+
 func packCaption(caption string) string {
-	return " - " + caption
+	var html HTML
+	html.addLine(" - " + caption)
+	return html.String()
 }
 
 func htmlHeader(withOutHeader string) string {
-	return "<h2>" + withOutHeader + "</h2>"
+	var html HTML
+	html.addLine("<h2>" + withOutHeader + "</h2>")
+	return html.String()
 }
 
 func htmlLink(path string, caption string) string {
-	return "<a href=\"" + path + "\">" + caption + "</a>"
+	var html HTML
+	html.addLine("<a href=\"" + path + "\">" + caption + "</a>")
+	return html.String()
 }
 
 func htmlLabel(name string, caption string) string {
-	return "<label for=\"" + name + "\">" + caption + "</label>"
+	var html HTML
+	html.addLine("<label for=\"" + name + "\">" + caption + "</label>")
+	return html.String()
 }
 
 func htmlGroupBox(caption string, controls string) string {
-	html := "<fieldset>\n"
-	html += htmlIndent("<legend>" + caption + "</legend>" + "\n")
-	html += htmlIndent(controls + "\n")
-	html += "</fieldset>"
-	return html
+	var html HTML
+	html.addLine("<fieldset>" + "\n")
+	html.addLine(htmlIndent("<legend>"+caption+"</legend>") + "\n")
+	html.addLine(htmlIndent(controls) + "\n")
+	html.addLine("</fieldset>")
+	return html.String()
 }
 
 func htmlTable(rows []string) string {
-	html := "<table>\n"
+	var html HTML
+	html.addLine("<table>\n")
 	for _, curRow := range rows {
-		html += htmlIndent(curRow) + "\n"
+		html.addLine(htmlIndent(curRow) + "\n")
 	}
-	html += "</table>"
-	return html
+	html.addLine("</table>")
+	return html.String()
 }
 
 func htmlTableRow(row string) string {
-	html := "<tr>" + "\n"
-	html += htmlIndent(row) + "\n"
-	html += "</tr>"
-	return html
+	var html HTML
+	html.addLine("<tr>" + "\n")
+	html.addLine(htmlIndent(row) + "\n")
+	html.addLine("</tr>")
+	return html.String()
 }
 
 func htmlTableColumn(row string) string {
-	return "<td>" + row + "</td>"
+	var html HTML
+	html.addLine("<td>" + row + "</td>")
+	return html.String()
 }
 
 func htmlInput(name string, caption string) string {
-	return "<input type=\"text\">"
+	var html HTML
+	html.addLine("<input type=\"text\">")
+	return html.String()
 }
 
-func htmlIndent(html string) string {
-	return "  " + html
+func htmlIndent(indent string) string {
+	var html HTML
+	html.addLine("  " + indent)
+	return html.String()
 }
 
-func htmlAddNewLine(html string) string {
-	return html + "<br>"
+func htmlAddNewLine(curLine string) string {
+	var html HTML
+	html.addLine(curLine + "<br>")
+	return html.String()
 }
