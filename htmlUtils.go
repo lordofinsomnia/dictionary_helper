@@ -13,9 +13,6 @@ func (html HTML) String() string {
 	strOut := ""
 	for _, curLine := range html.lines {
 		strOut += curLine
-		/*if i != len(html.lines) {
-			strOut += "\n"
-		}*/
 	}
 	return strOut
 }
@@ -108,7 +105,6 @@ func (html *HTML) htmlIndent3() {
 	for i, _ := range html.lines {
 		html.lines[i] = "  " + html.lines[i]
 	}
-	//html.htmlDump("htmlIndent3")
 }
 
 func htmlIndent2(indent HTML) HTML {
