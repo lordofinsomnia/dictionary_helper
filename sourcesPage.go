@@ -24,19 +24,6 @@ func sourcesHandler(c *gin.Context) {
 }
 
 func createGrpSource() string {
-	/*lblCaption = htmlLabel("caption", "caption:")
-	edtCaption = htmlInput("caption", "caption")
-
-	lblYear = htmlLabel("year", "year:")
-	edtYear = htmlInput("year", "year:")
-
-	lblShortName = htmlLabel("shortName", "shortName:")
-	edtShortName = htmlInput("shortName", "shortName")
-	controls := htmlAddNewLine(lblCaption+edtCaption) + "\n"
-	controls += htmlAddNewLine(htmlIndent(lblYear+edtYear)) + "\n"
-	controls += htmlAddNewLine(htmlIndent(lblShortName + edtShortName))
-	grpSource = htmlGroupBox("source", controls)*/
-
 	lblCaption = htmlTableColumn(htmlLabel("caption", "caption:"))
 	edtCaption = htmlTableColumn(htmlInput("caption", "caption"))
 	var rowCaption HTML
@@ -44,8 +31,6 @@ func createGrpSource() string {
 	rowCaption.addLineWithoutLF(edtCaption)
 	rowCaption.htmlIndent3()
 	rowCaption.htmlDump("rowCaption")
-
-	//columnCaption := htmlTableColumn(rowCaption.String()) + "e1te"
 
 	lblYear = htmlTableColumn(htmlLabel("year", "year:"))
 	edtYear = htmlTableColumn(htmlInput("year", "year:"))
@@ -74,52 +59,13 @@ func createGrpSource() string {
 	rowHtml.htmlDump("rowHtml")
 	shortNameHtml.htmlDump("shortNameHtml")
 
-	/*captionHtml.htmlIndent3()
-	rowHtml.htmlIndent3()
-	shortNameHtml.htmlIndent3()*/
-
 	htmls = make([]HTML, 3)
 	htmls[0] = captionHtml
 	htmls[1] = rowHtml
 	htmls[2] = shortNameHtml
 
-	captionHtml.htmlDump("captionHtml")
 	_, tableHtml := htmlTable(htmls)
-	tableHtml.htmlDump("tableHtml")
-
 	_, grpSourceHtml := htmlGroupBox("source", tableHtml)
-	grpSourceHtml.htmlDump("grpSourceHtml")
-
-	/*grpHtml.addLine()
-	grpHtml.addLine(htmlTableRow(rowYear.String()))
-	grpHtml.addLine(htmlTableRow(rowShortName.String()))
-	grpHtml.htmlDump("grpHtml")*/
-	//grpSourceStr, grpSourceHtml := htmlGroupBox("source", controls)
-
-	/*var controls HTML
-	controls.addLine(htmlTableColumn(lblCaption))
-	controls.addLine(htmlTableColumn(edtCaption))
-	controls.addLine(htmlAddNewLine(htmlIndent(lblYear + edtYear)))
-	controls.addLineWithoutLF(htmlAddNewLine(htmlIndent(lblShortName + edtShortName)))*/
-	/*htmlIndent(columnCaption), htmlIndent(rowYear.String())*/
-	//var rows []string
-	//rows := make([]string, 2)
-	/*controlsStr, controlsHTML := "htmlTable(rows)"
-	grpSourceStr, grpSourceHtml := htmlGroupBox("source", controls)
-	fmt.Println("controlsStr:")
-	fmt.Println(controlsStr)
-
-	fmt.Println("controlsHTML:")
-	fmt.Println(controlsHTML)
-
-	fmt.Println("grpSourceStr:")
-	fmt.Println(grpSourceStr)
-
-	fmt.Println("grpSourceHtml:")
-	fmt.Println(grpSourceHtml)
-
-	fmt.Println("grpSource:")
-	fmt.Println(htmlIndent2(grpSourceHtml))*/
 
 	return grpSourceHtml.String()
 }
