@@ -48,13 +48,17 @@ func TestHTMLUtils(t *testing.T) {
 			So(htmlTableColumn(name), ShouldEqual, expectedTableColumn)
 		})
 		Convey("htmlTableRow func", func() {
-			name := "test"
+			var name HTML
+			name.addLineWithoutLF("test")
+			name.htmlIndent3()
 			expectedTableRow := "<tr>" + "\n"
-			expectedTableRow += htmlIndent(name) + "\n"
-			expectedTableRow += "</tr>"
-			So(htmlTableRow(name), ShouldEqual, expectedTableRow)
+			expectedTableRow += name.String() + "\n"
+			expectedTableRow += "</tr>\n"
+			gotTableRowStr, gotTableRowHtml := htmlTableRow(name)
+			gotTableRowHtml.htmlDump("gotTableRowHtml")
+			So(gotTableRowStr, ShouldEqual, expectedTableRow)
 		})
-		Convey("htmlTable func", func() {
+		Convey("htmlTable1 func", func() {
 			/*tableRow00 := "t00"
 			tableRow01 := "t01"
 			tableRow02 := "t02"
@@ -78,12 +82,21 @@ func TestHTMLUtils(t *testing.T) {
 
 			var tableRows []string
 			tableRows = make([]string, 2)
+			var htmlRows HTML
+
+			htmlRows.addLine("<tr>")
+			htmlRows.addLine(htmlIndent("<td>t00</td><td>t01</td><td>t02</td>"))
+			htmlRows.addLine("</tr>")
+			htmlRows.addLine("<tr>")
+			htmlRows.addLine(htmlIndent("<td>t10</td><td>t11</td><td>t12</td>"))
+			htmlRows.addLine("</tr>")
+
 			tableRows[0] = "<tr>" + "\n"
-			tableRows[0] += "    <td>t00</td><td>t01</td><td>t02</td>" + "\n"
-			tableRows[0] += "  </tr>"
+			tableRows[0] += "  <td>t00</td><td>t01</td><td>t02</td>" + "\n"
+			tableRows[0] += "</tr>"
 			tableRows[1] = "<tr>" + "\n"
-			tableRows[1] += "    <td>t10</td><td>t11</td><td>t12</td>" + "\n"
-			tableRows[1] += "  </tr>"
+			tableRows[1] += "  <td>t10</td><td>t11</td><td>t12</td>" + "\n"
+			tableRows[1] += "</tr>"
 
 			expectedTable := "<table>" + "\n"
 			expectedTable += "  <tr>" + "\n"
@@ -92,9 +105,26 @@ func TestHTMLUtils(t *testing.T) {
 			expectedTable += "  <tr>" + "\n"
 			expectedTable += "    <td>t10</td><td>t11</td><td>t12</td>" + "\n"
 			expectedTable += "  </tr>" + "\n"
-			expectedTable += "</table>"
+			expectedTable += "</table>\n"
 
-			So(htmlTable(tableRows), ShouldEqual, expectedTable)
+			//var table2Rows []string
+
+			expectedTable2 := "<table>" + "\n"
+			expectedTable2 += "</table>"
+
+			htmlRows.htmlDump("htmlRows")
+			var htmls []HTML
+			htmls = make([]HTML, 1)
+			htmls[0] = htmlRows
+
+			//gotTable, _ := htmlTable(tableRows)
+			//gotTable2, _ := htmlTable(table2Rows)
+			_, gotTable3Html := htmlTable(htmls)
+			gotTable3Html.htmlDump("gotTable3Html")
+
+			//So(gotTable, ShouldEqual, expectedTable)
+			//So(gotTable2, ShouldEqual, expectedTable2)
+			So(gotTable3Html.String(), ShouldEqual, expectedTable)
 		})
 		Convey("htmlGroupBox func", func() {
 			name := "test"
@@ -102,13 +132,15 @@ func TestHTMLUtils(t *testing.T) {
 			expected := "<fieldset>\n"
 			expected += htmlIndent("<legend>test</legend>\n")
 			expected += htmlIndent("<label for=\"test\">test</label><br>" + "<input type=\"text\">" + "\n")
-			expected += "</fieldset>"
+			expected += "</fieldset>\n"
 			label := htmlLabel(name, caption)
 			input := htmlInput(name, caption)
-			controls := label + "<br>" + input
-			html := htmlGroupBox(name, controls)
+			//controls := label + "<br>" + input
+			var controls HTML
+			controls.addLine(label + "<br>" + input)
+			htmlStr, _ := htmlGroupBox(name, controls)
 
-			So(html, ShouldEqual, expected)
+			So(htmlStr, ShouldEqual, expected)
 		})
 	})
 }
