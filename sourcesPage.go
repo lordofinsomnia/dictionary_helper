@@ -6,14 +6,23 @@ import (
 	"net/http"
 )
 
-var lblCaption string
-var edtCaption string
-var lblYear string
-var edtYear string
-var lblShortName string
-var edtShortName string
-var controls string
-var grpSource string
+var (
+	lblCaption      string
+	edtCaption      string
+	lblYear         string
+	edtYear         string
+	lblShortName    string
+	edtShortName    string
+	controls        string
+	buttons         string
+	grpSource       string
+	btnAddSource    string
+	btnEditSource   string
+	btnDeleteSource string
+	btnExportSource string
+	btnImportSource string
+	btnPrintSource  string
+)
 
 func packCaption(caption string) string {
 	return " - " + caption
@@ -67,8 +76,22 @@ func createGrpSource() string {
 
 	return grpSourceHtml.String()
 }
+
+func createButtons() string {
+	btnAddSource = htmlButton("add")
+	btnEditSource = htmlButton("edit")
+	btnDeleteSource = htmlButton("delete")
+	btnExportSource = htmlButton("export")
+	btnImportSource = htmlButton("import")
+	btnPrintSource = htmlButton("print")
+	return ""
+}
+
 func createSourcePage() string {
 	grpSource = createGrpSource()
+	buttons = createButtons()
+
 	controls := grpSource
+	controls += buttons
 	return controls
 }

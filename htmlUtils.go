@@ -39,6 +39,12 @@ func htmlLink(path string, caption string) string {
 	return html.String()
 }
 
+func htmlButton(caption string) string {
+	var html HTML
+	html.addLineWithoutLF("<button type=\"button\">" + caption + "</button>")
+	return html.String()
+}
+
 func htmlLabel(name string, caption string) string {
 	var html HTML
 	html.addLineWithoutLF("<label for=\"" + name + "\">" + caption + "</label>")

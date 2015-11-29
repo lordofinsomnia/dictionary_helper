@@ -43,6 +43,26 @@ func TestSources(t *testing.T) {
 						})
 					})
 				})
+				Convey("Has buttons", func() {
+					Convey("Has button add", func() {
+						So(responseStr, ShouldContainSubstring, btnAddSource)
+					})
+					Convey("Has button edit", func() {
+						So(responseStr, ShouldContainSubstring, btnEditSource)
+					})
+					Convey("Has button delete", func() {
+						So(responseStr, ShouldContainSubstring, btnDeleteSource)
+					})
+					Convey("Has button export", func() {
+						So(responseStr, ShouldContainSubstring, btnExportSource)
+					})
+					Convey("Has button import", func() {
+						So(responseStr, ShouldContainSubstring, btnImportSource)
+					})
+					Convey("Has button print", func() {
+						So(responseStr, ShouldContainSubstring, btnPrintSource)
+					})
+				})
 			})
 		})
 	})
