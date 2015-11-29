@@ -15,6 +15,10 @@ var edtShortName string
 var controls string
 var grpSource string
 
+func packCaption(caption string) string {
+	return " - " + caption
+}
+
 func sourcesHandler(c *gin.Context) {
 	var sourcePage Page
 	sourcePage.Caption = packCaption("Sources")

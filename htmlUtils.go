@@ -9,7 +9,7 @@ type HTML struct {
 	lines []string
 }
 
-func (html HTML) String() string {
+func (html *HTML) String() string {
 	strOut := ""
 	for _, curLine := range html.lines {
 		strOut += curLine
@@ -23,12 +23,6 @@ func (html *HTML) addLineWithoutLF(line string) {
 
 func (html *HTML) addLine(line string) {
 	html.addLineWithoutLF(line + "\n")
-}
-
-func packCaption(caption string) string {
-	var html HTML
-	html.addLineWithoutLF(" - " + caption)
-	return html.String()
 }
 
 func htmlHeader(withOutHeader string) string {
