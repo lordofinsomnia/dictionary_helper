@@ -31,9 +31,6 @@ func TestApp(t *testing.T) {
 					Convey("Http status OK", func() {
 						So(response.Code, ShouldEqual, http.StatusOK)
 					})
-					Convey("Has caption", func() {
-						So(responseStr, ShouldContainSubstring, curRoute.caption)
-					})
 					Convey("Link slice found", func() {
 						So(links, ShouldNotBeEmpty)
 						Convey("Has all links", func() {

@@ -13,7 +13,6 @@ type Route struct {
 	name        string
 	path        string
 	funcHandler gin.HandlerFunc
-	caption     string
 }
 
 type Link struct {
@@ -31,15 +30,7 @@ type Page struct {
 var links = [...]Link{Link{caption: "Home", path: "/"},
 	Link{caption: "Sources", path: "/sources"}}
 
-var routes = [...]Route{
-	Route{name: "home",
-		path:        "/",
-		funcHandler: homeHandler,
-		caption:     htmlHeader("Dictionary Helper")},
-	Route{name: "source",
-		path:        "/sources",
-		funcHandler: sourcesHandler,
-		caption:     htmlHeader("Dictionary Helper - Sources")}}
+var routes []Route
 
 var webApp *gin.Engine
 var indexTempl *template.Template
@@ -55,12 +46,20 @@ func startServer() {
 	webApp.Run(":3000")
 }
 
+func initRoutes() {
+	routes = make([]Route, 2)
+	routeHome := Route{name: "home", path: "/", funcHandler: homeHandler}
+	routeSoures := Route{name: "source", path: "/sources", funcHandler: sourcesHandler}
+	routes[0] = routeHome
+	routes[1] = routeSoures
+
+}
+
 func configureServer() {
 	templates = nil
-	//initTemplates()
 	webApp = gin.Default()
 	webApp.LoadHTMLGlob("templates/*.tmpl")
-	//webApp.HTMLRender = createMyRender()
+	initRoutes()
 	for _, curRoute := range routes {
 		webApp.GET(curRoute.path, curRoute.funcHandler)
 	}
