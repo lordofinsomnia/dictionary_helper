@@ -17,6 +17,7 @@ func getResponse(r http.Handler, method, path string) *httptest.ResponseRecorder
 
 func TestApp(t *testing.T) {
 	webApp = nil
+	routes = nil
 	Convey("StartServer", t, func() {
 		configureServer()
 		Convey("Server started?", func() {
@@ -24,6 +25,24 @@ func TestApp(t *testing.T) {
 		})
 		Convey("Routes are set", func() {
 			So(routes, ShouldNotBeEmpty)
+			Convey("Routes inited", func() {
+				homeFound := false
+				sourcesFound := false
+
+				for _, curRoute := range routes {
+					if curRoute.name == "home" && curRoute.path == "/" {
+						homeFound = true
+					} else if curRoute.name == "source" && curRoute.path == "/sources" {
+						sourcesFound = true
+					}
+				}
+				Convey("Routes home inited", func() {
+					So(homeFound, ShouldBeTrue)
+				})
+				Convey("Routes source inited", func() {
+					So(sourcesFound, ShouldBeTrue)
+				})
+			})
 			for _, curRoute := range routes {
 				Convey("Route: "+curRoute.path+" works", func() {
 					response := getResponse(webApp, "GET", curRoute.path)

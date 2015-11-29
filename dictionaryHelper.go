@@ -52,7 +52,6 @@ func initRoutes() {
 	routeSoures := Route{name: "source", path: "/sources", funcHandler: sourcesHandler}
 	routes[0] = routeHome
 	routes[1] = routeSoures
-
 }
 
 func configureServer() {
