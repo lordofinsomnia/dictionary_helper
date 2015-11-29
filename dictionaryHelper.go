@@ -64,58 +64,6 @@ func configureServer() {
 	}
 }
 
-/*
-// Load templates on program initialisation
-func initTemplates() {
-	if templates == nil {
-		templates = make(map[string]*template.Template)
-	}
-
-	templatesDir := "./templates"
-
-	fmt.Println("templates:")
-	fmt.Println(templatesDir)
-	templateFiles, err := filepath.Glob(templatesDir + "/*.tmpl")
-	if err != nil {
-		panic(err)
-	}
-
-	// Generate our templates map from our layouts/ and includes/ directories
-	for _, templateFile := range templateFiles {
-		templates[filepath.Base(templateFile)] = template.Must(template.ParseFiles(templateFiles...))
-	}
-	fmt.Println("templates:")
-	fmt.Println(templates)
-	fmt.Println("template files:")
-	fmt.Println(templateFiles)
-
-}
-
-func renderTemplate(w http.ResponseWriter, name string, data map[string]interface{}) error {
-	// Ensure the template exists in the map.
-	tmpl, ok := templates[name]
-	if !ok {
-		return fmt.Errorf("The template %s does not exist.", name)
-	}
-
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	tmpl.ExecuteTemplate(w, "base", data)
-
-	return nil
-}
-
-func createMyRender() multitemplate.Render {
-	r := multitemplate.New()
-	for curTemplateName, _ := range templates {
-		r.Add(curTemplateName, templates[curTemplateName])
-	}
-	fmt.Println("templates:")
-	fmt.Println(templates)
-	fmt.Println("r:")
-	fmt.Println(r)
-	return r
-}*/
-
 func homeHandler(c *gin.Context) {
 	c.HTML(http.StatusOK, "home", gin.H{})
 }

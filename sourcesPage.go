@@ -34,7 +34,6 @@ func createGrpSource() string {
 	rowCaption.addLineWithoutLF(lblCaption)
 	rowCaption.addLineWithoutLF(edtCaption)
 	rowCaption.htmlIndent3()
-	rowCaption.htmlDump("rowCaption")
 
 	lblYear = htmlTableColumn(htmlLabel("year", "year:"))
 	edtYear = htmlTableColumn(htmlInput("year", "year:"))
@@ -43,7 +42,6 @@ func createGrpSource() string {
 	rowYear.addLineWithoutLF(lblYear)
 	rowYear.addLineWithoutLF(edtYear)
 	rowYear.htmlIndent3()
-	rowYear.htmlDump("rowYear")
 
 	lblShortName = htmlTableColumn(htmlLabel("shortName", "shortName:"))
 	edtShortName = htmlTableColumn(htmlInput("shortName", "shortName"))
@@ -52,7 +50,6 @@ func createGrpSource() string {
 	rowShortName.addLineWithoutLF(lblShortName)
 	rowShortName.addLineWithoutLF(edtShortName)
 	rowShortName.htmlIndent3()
-	rowShortName.htmlDump("rowShortName")
 
 	var htmls []HTML
 
