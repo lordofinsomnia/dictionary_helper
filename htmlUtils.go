@@ -25,10 +25,12 @@ func (html *HTML) addLine(line string) {
 	html.addLineWithoutLF(line + "\n")
 }
 
-func htmlHeader(withOutHeader string) string {
-	var html HTML
-	html.addLineWithoutLF("<h2>" + withOutHeader + "</h2>")
-	return html.String()
+func htmlHeader(header string) string {
+	return "<h2>" + header + "</h2>"
+}
+
+func (html *HTML) AddHeader(withOutHeader string) {
+	html.addLineWithoutLF(htmlHeader(withOutHeader))
 }
 
 func htmlLink(path string, caption string) string {
