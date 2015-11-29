@@ -56,9 +56,6 @@ func createGrpSource() string {
 	_, captionHtml := htmlTableRow(rowCaption)
 	_, rowHtml := htmlTableRow(rowYear)
 	_, shortNameHtml := htmlTableRow(rowShortName)
-	captionHtml.htmlDump("captionHtml")
-	rowHtml.htmlDump("rowHtml")
-	shortNameHtml.htmlDump("shortNameHtml")
 
 	htmls = make([]HTML, 3)
 	htmls[0] = captionHtml

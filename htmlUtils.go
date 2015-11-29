@@ -30,7 +30,7 @@ func htmlHeader(header string) string {
 }
 
 func (html *HTML) AddHeader(withOutHeader string) {
-	html.addLineWithoutLF(htmlHeader(withOutHeader))
+	html.addLineWithoutLF("<h2>" + withOutHeader + "</h2>")
 }
 
 func htmlLink(path string, caption string) string {
